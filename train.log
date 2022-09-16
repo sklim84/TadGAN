@@ -1,0 +1,8 @@
+INFO:root:Number of train datapoints is 784537
+INFO:root:Number of samples in train dataset 784537
+DEBUG:root:Starting training
+DEBUG:root:Epoch 0
+2022-09-16 07:55:29 INFO     Number of train datapoints is 784537
+2022-09-16 07:55:29 INFO     Number of samples in train dataset 784537
+2022-09-16 07:56:41 INFO     Number of train datapoints is 784537
+2022-09-16 07:56:41 INFO     Number of samples in train dataset 784537

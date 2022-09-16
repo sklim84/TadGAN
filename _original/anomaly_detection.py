@@ -3,25 +3,21 @@ from scipy import stats
 
 import torch
 
-def test(test_loader, encoder, decoder, critic_x, device, batch_size):
+def test(test_loader, encoder, decoder, critic_x):
     reconstruction_error = list()
     critic_score = list()
     y_true = list()
 
     for batch, sample in enumerate(test_loader):
-
-        signal = sample['signal'].to(device)
-        anomaly = sample['anomaly']
-
-        reconstructed_signal = decoder(encoder(signal))
+        reconstructed_signal = decoder(encoder(sample['signal']))
         reconstructed_signal = torch.squeeze(reconstructed_signal)
 
-        for i in range(0, batch_size):
-            x_ = reconstructed_signal[i].detach().cpu().numpy()
-            x = signal[i].cpu().numpy()
-            y_true.append(int(anomaly[i].detach()))
+        for i in range(0, 64):
+            x_ = reconstructed_signal[i].detach().numpy()
+            x = sample['signal'][i].numpy()
+            y_true.append(int(sample['anomaly'][i].detach()))
             reconstruction_error.append(dtw_reconstruction_error(x, x_))
-        critic_score.extend(torch.squeeze(critic_x(signal)).detach().cpu().numpy())
+        critic_score.extend(torch.squeeze(critic_x(sample['signal'])).detach().numpy())
 
     reconstruction_error = stats.zscore(reconstruction_error)
     critic_score = stats.zscore(critic_score)

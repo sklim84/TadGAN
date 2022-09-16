@@ -1,0 +1,9 @@
+INFO:root:Number of train datapoints is 1037
+INFO:root:Number of samples in train dataset 1037
+DEBUG:root:Starting training
+DEBUG:root:Epoch 0
+DEBUG:root:Critic training done in epoch 0
+DEBUG:root:Encoder decoder training done in epoch 0
+DEBUG:root:critic x loss 0.161 critic z loss 0.126 
+encoder loss -0.105 decoder loss -0.054
+
