@@ -1,25 +1,21 @@
 # coding: utf-8
 import logging
+import random
 
 import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 import torch.optim as optim
+from scipy import stats
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
-from scipy import stats
-from anomaly_detection import find_scores, dtw_reconstruction_error, detect_anomaly, prune_false_positive
-import model
-from _datasets.datasets import WADIDataset
-from config import get_config
-import random
 from tqdm import tqdm
 
-logging.basicConfig(
-    filename='train.log',
-    format='%(asctime)s %(levelname)-8s %(message)s',
-    level=logging.DEBUG,
-    datefmt='%Y-%m-%d %H:%M:%S')
+import model
+from _datasets.datasets import WADIDataset
+from anomaly_detection import dtw_reconstruction_error, detect_anomaly, prune_false_positive
+from config import get_config
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
 
 def critic_x_iteration(sample, device, batch_size, latent_space_dim, critic_x, decoder, optimizer):
@@ -174,6 +170,12 @@ if __name__ == "__main__":
     args = get_config()
     print(args)
 
+    logging.basicConfig(
+        filename=f'./results/train_{args.epoch}_{args.batch}_{args.n_critics}_{args.lr}_{args.latent_space_dim}_{args.beta1}_{args.beta2}.log',
+        format='%(asctime)s %(levelname)-8s %(message)s',
+        level=logging.DEBUG,
+        datefmt='%Y-%m-%d %H:%M:%S')
+
     # fix randomness
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed(args.seed)
@@ -188,19 +190,19 @@ if __name__ == "__main__":
     device = torch.device(gpu)
 
     signal_shape = 123  # WADI
-    encoder_path = 'models/encoder.pt'
-    encoder_opt_path = 'models/encoder_opt.pt'
-    decoder_path = 'models/decoder.pt'
-    decoder_opt_path = 'models/decoder_opt.pt'
-    critic_x_path = 'models/critic_x.pt'
-    critic_x_opt_path = 'models/critic_x_opt.pt'
-    critic_z_path = 'models/critic_z.pt'
-    critic_z_opt_path = 'models/critic_z_opt.pt'
+    encoder_path = 'models/encoder_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    encoder_opt_path = 'models/encoder_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    decoder_path = 'models/decoder_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    decoder_opt_path = 'models/decoder_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    critic_x_path = 'models/critic_x_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    critic_x_opt_path = 'models/critic_x_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    critic_z_path = 'models/critic_z_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    critic_z_opt_path = 'models/critic_z_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
 
-    encoder = model.Encoder(encoder_path, signal_shape)
-    decoder = model.Decoder(decoder_path, signal_shape)
+    encoder = model.Encoder(encoder_path, signal_shape, args.latent_space_dim)
+    decoder = model.Decoder(decoder_path, signal_shape, args.latent_space_dim)
     critic_x = model.CriticX(critic_x_path, signal_shape)
-    critic_z = model.CriticZ(critic_z_path)
+    critic_z = model.CriticZ(critic_z_path, args.latent_space_dim)
     encoder.to(device)
     decoder.to(device)
     critic_x.to(device)
@@ -210,6 +212,11 @@ if __name__ == "__main__":
     optim_dec = optim.Adam(decoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
     optim_cx = optim.Adam(critic_x.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
     optim_cz = optim.Adam(critic_z.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
+
+    # load data
+    train_data = np.load('./_datasets/WADI/train.npy')
+    test_data = np.load('./_datasets/WADI/test.npy')
+    test_label = np.load('./_datasets/WADI/labels.npy')
 
     # Train
     logging.info('Starting training')
@@ -221,9 +228,8 @@ if __name__ == "__main__":
         cx_nc_loss, cz_nc_loss = list(), list()
 
         # training data random sampling
-        train_dataset = WADIDataset(path_data='./_datasets/WADI/train.npy', sampling_ratio=0.2)
+        train_dataset = WADIDataset(data=train_data, sampling_ratio=0.2)
         train_loader = DataLoader(train_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
-        logging.info('Number of train datapoints is {}'.format(len(train_dataset)))
         logging.info('Number of samples in train dataset {}'.format(len(train_dataset)))
 
         for i in range(1, args.n_critics + 1):
@@ -257,7 +263,7 @@ if __name__ == "__main__":
         encoder_epoch_loss.append(torch.mean(torch.tensor(encoder_loss)))
         decoder_epoch_loss.append(torch.mean(torch.tensor(decoder_loss)))
         logging.info('Encoder decoder training done in epoch {}'.format(epoch))
-        logging.info('critic x loss {:.3f} critic z loss {:.3f} \nencoder loss {:.3f} decoder loss {:.3f}\n'.format(
+        logging.info('critic x loss {:.3f} critic z loss {:.3f} encoder loss {:.3f} decoder loss {:.3f}\n'.format(
             cx_epoch_loss[-1], cz_epoch_loss[-1], encoder_epoch_loss[-1], decoder_epoch_loss[-1]))
 
         if epoch % 10 == 0:
@@ -271,9 +277,9 @@ if __name__ == "__main__":
             torch.save(optim_cz.state_dict(), critic_z_opt_path)
 
     # Test
-    test_dataset = WADIDataset(path_data='./_datasets/WADI/test.npy', path_label='./_datasets/WADI/labels.npy')
+    # FIXME remove sampling ratio
+    test_dataset = WADIDataset(data=test_data, label=test_label)
     test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
-    # anomaly_detection.test(test_loader, encoder, decoder, critic_x, device, args.batch)
 
     logging.info('Number of samples in test dataset {}'.format(len(test_dataset)))
 
@@ -297,11 +303,18 @@ if __name__ == "__main__":
         critic_score = torch.squeeze(critic_x(signal))
         critic_score_list.extend(critic_score.detach().cpu().numpy())
 
-        logging.info('test batch:{}, critic_score {}'.format(batch, critic_score))
+        logging.info('test batch:{}'.format(batch))
 
     reconstruction_error_stats = stats.zscore(reconstruction_error_list)
     critic_score_stats = stats.zscore(critic_score_list)
     anomaly_score = reconstruction_error_stats * critic_score_stats
     y_predict = detect_anomaly(anomaly_score)
     y_predict = prune_false_positive(y_predict, anomaly_score, change_threshold=0.1)
-    find_scores(y_true, y_predict)
+
+    accuracy = accuracy_score(y_true, y_predict)
+    precision = precision_score(y_true, y_predict, pos_label=0)
+    recall = recall_score(y_true, y_predict, pos_label=0)
+    f1score = f1_score(y_true, y_predict, pos_label=0)
+
+    logging.info('accuracy: {:.4f}, precision: {:.4f}, recall: {:.4f}, f1score: {:.4f}'
+                 .format(accuracy, precision, recall, f1score))

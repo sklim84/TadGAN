@@ -129,9 +129,13 @@ def find_scores(y_true, y_predict):
         elif y_true[i] == 0 and y_predict[i] == 1:
             fp += 1
 
-    print ('Accuracy {:.2f}'.format((tp + tn)/(len(y_true))))
+    accuracy = (tp + tn)/(len(y_true))
+    print('Accuracy {:.2f}'.format(accuracy))
     precision = tp / (tp + fp)
+    print('Precision {:.2f}'.format(precision))
     recall = tp / (tp + fn)
-    print ('Precision {:.2f}'.format(precision))
-    print ('Recall {:.2f}'.format(recall))
-    print ('F1 Score {:.2f}'.format(2 * precision * recall / (precision + recall)))
+    print('Recall {:.2f}'.format(recall))
+    f1score = 2 * precision * recall / (precision + recall)
+    print('F1 Score {:.2f}'.format(f1score))
+
+    return accuracy, precision, recall, f1score
