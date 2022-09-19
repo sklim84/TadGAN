@@ -12,24 +12,13 @@ class WADIDataset(Dataset):
             self.label = np.zeros(shape=(len(self.data),), dtype=np.int8)
 
         if sampling_ratio is not None:
-            self.data = self._sampling(self.data, sampling_ratio)
-            self.label = self._sampling(self.label, sampling_ratio)
+            self.data, self.label = self._sampling(self.data, self.label, sampling_ratio)
 
-    # def __init__(self, path_data, path_label=None, sampling_ratio=None):
-    #     self.data = np.load(path_data)
-    #     if path_label is not None:
-    #         self.label = np.load(path_label)
-    #     else:
-    #         self.label = np.zeros(shape=(len(self.data),), dtype=np.int8)
-    #
-    #     if sampling_ratio is not None:
-    #         self.data = self._sampling(self.data, sampling_ratio)
-    #         self.label = self._sampling(self.label, sampling_ratio)
-
-    def _sampling(self, target, sampling_ratio):
-        length = len(target)
+    def _sampling(self, data, label, sampling_ratio):
+        length = len(data)
         idx_sample = np.random.permutation(length)[:int(np.floor(sampling_ratio * length))]
-        return target[idx_sample]
+        idx_sample = np.sort(idx_sample)
+        return data[idx_sample], label[idx_sample]
 
     def __len__(self):
         return len(self.data)

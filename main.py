@@ -13,7 +13,7 @@ from tqdm import tqdm
 
 import model
 from _datasets.datasets import WADIDataset
-from anomaly_detection import dtw_reconstruction_error, detect_anomaly, prune_false_positive
+from anomaly_detection import dtw_reconstruction_error, pw_reconstruction_error, detect_anomaly, prune_false_positive
 from config import get_config
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
@@ -189,34 +189,39 @@ if __name__ == "__main__":
     gpu = 'cuda:' + args.device
     device = torch.device(gpu)
 
-    signal_shape = 123  # WADI
-    encoder_path = 'models/encoder_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    encoder_opt_path = 'models/encoder_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    decoder_path = 'models/decoder_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    decoder_opt_path = 'models/decoder_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    critic_x_path = 'models/critic_x_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    critic_x_opt_path = 'models/critic_x_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    critic_z_path = 'models/critic_z_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
-    critic_z_opt_path = 'models/critic_z_opt_{}_{}_{}.pt'.format(args.n_critics, args.lr, args.latent_space_dim)
+    # load data
+    if args.datasets == 'wadi':
+        train_data = np.load('./_datasets/WADI/train.npy')
+        test_data = np.load('./_datasets/WADI/test.npy')
+        test_label = np.load('./_datasets/WADI/labels.npy')
 
-    encoder = model.Encoder(encoder_path, signal_shape, args.latent_space_dim)
+    signal_shape = train_data.shape[1]
+    encoder_path = 'models/encoder_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    encoder_opt_path = 'models/encoder_opt_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    decoder_path = 'models/decoder_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    decoder_opt_path = 'models/decoder_opt_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    critic_x_path = 'models/critic_x_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    critic_x_opt_path = 'models/critic_x_opt_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    critic_z_path = 'models/critic_z_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+    critic_z_opt_path = 'models/critic_z_opt_{}_{}_{}.pt'.format(args.datasets, args.lr, args.latent_space_dim)
+
+    encoder = model.Encoder(encoder_path, args.batch, signal_shape, args.latent_space_dim)
     decoder = model.Decoder(decoder_path, signal_shape, args.latent_space_dim)
-    critic_x = model.CriticX(critic_x_path, signal_shape)
+    critic_x = model.CriticX(critic_x_path, args.batch, signal_shape)
     critic_z = model.CriticZ(critic_z_path, args.latent_space_dim)
-    encoder.to(device)
-    decoder.to(device)
-    critic_x.to(device)
-    critic_z.to(device)
+    encoder = encoder.to(device)
+    # encoder = torch.nn.DataParallel(encoder, device_ids=[0, 1, 2, 3])
+    decoder = decoder.to(device)
+    # decoder = torch.nn.DataParallel(decoder, device_ids=[0, 1, 2, 3])
+    critic_x = critic_x.to(device)
+    # critic_x = torch.nn.DataParallel(critic_x, device_ids=[0, 1, 2, 3])
+    critic_z = critic_z.to(device)
+    # critic_z = torch.nn.DataParallel(critic_z, device_ids=[0, 1, 2, 3])
 
     optim_enc = optim.Adam(encoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
     optim_dec = optim.Adam(decoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
     optim_cx = optim.Adam(critic_x.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
     optim_cz = optim.Adam(critic_z.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
-
-    # load data
-    train_data = np.load('./_datasets/WADI/train.npy')
-    test_data = np.load('./_datasets/WADI/test.npy')
-    test_label = np.load('./_datasets/WADI/labels.npy')
 
     # Train
     logging.info('Starting training')
@@ -267,54 +272,53 @@ if __name__ == "__main__":
             cx_epoch_loss[-1], cz_epoch_loss[-1], encoder_epoch_loss[-1], decoder_epoch_loss[-1]))
 
         if epoch % 10 == 0:
-            torch.save(encoder.state_dict(), encoder.encoder_path)
-            torch.save(decoder.state_dict(), decoder.decoder_path)
-            torch.save(critic_x.state_dict(), critic_x.critic_x_path)
-            torch.save(critic_z.state_dict(), critic_z.critic_z_path)
+            torch.save(encoder.state_dict(), encoder_path)
+            torch.save(decoder.state_dict(), decoder_path)
+            torch.save(critic_x.state_dict(), critic_x_path)
+            torch.save(critic_z.state_dict(), critic_z_path)
             torch.save(optim_enc.state_dict(), encoder_opt_path)
             torch.save(optim_dec.state_dict(), decoder_opt_path)
             torch.save(optim_cx.state_dict(), critic_x_opt_path)
             torch.save(optim_cz.state_dict(), critic_z_opt_path)
 
     # Test
-    # FIXME remove sampling ratio
-    test_dataset = WADIDataset(data=test_data, label=test_label)
-    test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
-
-    logging.info('Number of samples in test dataset {}'.format(len(test_dataset)))
-
-    reconstruction_error_list = list()
-    critic_score_list = list()
-    y_true = list()
-
-    for batch, sample in enumerate(test_loader):
-        signal = sample['signal'].to(device)
-        anomaly = sample['anomaly']
-
-        reconstructed_signal = decoder(encoder(signal))
-        reconstructed_signal = torch.squeeze(reconstructed_signal)
-
-        for i in range(0, args.batch):
-            x_ = reconstructed_signal[i].detach().cpu().numpy()
-            x = signal[i].cpu().numpy()
-            y_true.append(int(anomaly[i].detach()))
-            reconstruction_error = dtw_reconstruction_error(x, x_)
-            reconstruction_error_list.append(reconstruction_error)
-        critic_score = torch.squeeze(critic_x(signal))
-        critic_score_list.extend(critic_score.detach().cpu().numpy())
-
-        logging.info('test batch:{}'.format(batch))
-
-    reconstruction_error_stats = stats.zscore(reconstruction_error_list)
-    critic_score_stats = stats.zscore(critic_score_list)
-    anomaly_score = reconstruction_error_stats * critic_score_stats
-    y_predict = detect_anomaly(anomaly_score)
-    y_predict = prune_false_positive(y_predict, anomaly_score, change_threshold=0.1)
-
-    accuracy = accuracy_score(y_true, y_predict)
-    precision = precision_score(y_true, y_predict, pos_label=0)
-    recall = recall_score(y_true, y_predict, pos_label=0)
-    f1score = f1_score(y_true, y_predict, pos_label=0)
-
-    logging.info('accuracy: {:.4f}, precision: {:.4f}, recall: {:.4f}, f1score: {:.4f}'
-                 .format(accuracy, precision, recall, f1score))
+    # test_dataset = WADIDataset(data=test_data, label=test_label)
+    # test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
+    #
+    # logging.info('Number of samples in test dataset {}'.format(len(test_dataset)))
+    #
+    # reconstruction_error_list = list()
+    # critic_score_list = list()
+    # y_true = list()
+    #
+    # for batch, sample in enumerate(test_loader):
+    #     signal = sample['signal'].to(device)
+    #     anomaly = sample['anomaly']
+    #
+    #     reconstructed_signal = decoder(encoder(signal))
+    #     reconstructed_signal = torch.squeeze(reconstructed_signal)
+    #
+    #     for i in range(0, args.batch):
+    #         x_ = reconstructed_signal[i].detach().cpu().numpy()
+    #         x = signal[i].cpu().numpy()
+    #         y_true.append(int(anomaly[i].detach()))
+    #         reconstruction_error = pw_reconstruction_error(x, x_)
+    #         reconstruction_error_list.append(reconstruction_error)
+    #     critic_score = torch.squeeze(critic_x(signal))
+    #     critic_score_list.extend(critic_score.detach().cpu().numpy())
+    #
+    #     logging.info('test batch:{}'.format(batch))
+    #
+    # reconstruction_error_stats = stats.zscore(reconstruction_error_list)
+    # critic_score_stats = stats.zscore(critic_score_list)
+    # anomaly_score = reconstruction_error_stats * critic_score_stats
+    # y_predict = detect_anomaly(anomaly_score)
+    # y_predict = prune_false_positive(y_predict, anomaly_score, change_threshold=0.1)
+    #
+    # accuracy = accuracy_score(y_true, y_predict)
+    # precision = precision_score(y_true, y_predict, pos_label=0)
+    # recall = recall_score(y_true, y_predict, pos_label=0)
+    # f1score = f1_score(y_true, y_predict, pos_label=0)
+    #
+    # logging.info('accuracy: {:.4f}, precision: {:.4f}, recall: {:.4f}, f1score: {:.4f}'
+    #              .format(accuracy, precision, recall, f1score))

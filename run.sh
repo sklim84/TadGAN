@@ -4,13 +4,13 @@ for datasets in 'wadi'
 do
   for epoch in 200
   do
-    for batch in 64
+    for batch in 12
     do
-      for n_critics in 3 # 3 4 5
+      for n_critics in 5
       do
-        for lr in 1e-4 1e-5 1e-6
+        for lr in 1e-5 1e-6 1e-7
         do
-          for latent_space_dim in 10 20 30
+          for latent_space_dim in 20 # 20 30 40
           do
             for beta1 in 0.5
             do
