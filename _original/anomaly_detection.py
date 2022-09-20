@@ -21,6 +21,8 @@ def test(test_loader, encoder, decoder, critic_x):
 
     reconstruction_error = stats.zscore(reconstruction_error)
     critic_score = stats.zscore(critic_score)
+    print(reconstruction_error)
+    print(critic_score)
     anomaly_score = reconstruction_error * critic_score
     y_predict = detect_anomaly(anomaly_score)
     y_predict = prune_false_positive(y_predict, anomaly_score, change_threshold=0.1)

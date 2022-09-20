@@ -16,6 +16,19 @@ from _datasets.datasets import WADIDataset
 from anomaly_detection import dtw_reconstruction_error, pw_reconstruction_error, detect_anomaly, prune_false_positive
 from config import get_config
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+import os
+
+# setting logger
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.DEBUG,
+    datefmt='%Y-%m-%d %H:%M:%S')
+tlog = logging.getLogger('train')
+tfile_handler = logging.FileHandler(os.path.join('./logs', 'train.log'))
+tlog.addHandler(tfile_handler)
+elog = logging.getLogger('test')
+efile_handler = logging.FileHandler(os.path.join('./logs', 'test.log'))
+elog.addHandler(efile_handler)
 
 
 def critic_x_iteration(sample, device, batch_size, signal_shape, latent_space_dim, critic_x, decoder, optimizer):
@@ -174,7 +187,7 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
     # training data random sampling
     train_dataset = WADIDataset(data=data, sampling_ratio=sampling_ratio)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, drop_last=True)
-    logging.info('Number of samples in train dataset {}'.format(len(train_dataset)))
+    tlog.info('Number of samples in train dataset {}'.format(len(train_dataset)))
 
     for i in range(1, n_critics + 1):
         cx_loss_list, cz_loss_list = list(), list()
@@ -190,7 +203,7 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
         cx_nc_loss.append(torch.mean(torch.tensor(cx_loss_list)))
         cz_nc_loss.append(torch.mean(torch.tensor(cz_loss_list)))
 
-    logging.info('Critic training done')
+    tlog.info('Critic training done')
 
     encoder_loss, decoder_loss = list(), list()
 
@@ -212,8 +225,8 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
     return cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean
 
 
-def test_model(encoder, decoder, critic_x, dataloader, batch_size, device):
-    logging.info('Number of samples in test dataset {}'.format(len(dataloader.dataset)))
+def eval_model(encoder, decoder, critic_x, dataloader, batch_size, device):
+    elog.info('Number of samples in test dataset {}'.format(len(dataloader.dataset)))
 
     reconstruction_error_list = list()
     critic_score_list = list()
@@ -230,12 +243,16 @@ def test_model(encoder, decoder, critic_x, dataloader, batch_size, device):
             x_ = reconstructed_signal[i].detach().cpu().numpy()
             x = signal[i].cpu().numpy()
             y_true.append(int(anomaly[i].detach()))
+            # FIXME sum or mean
             reconstruction_error = pw_reconstruction_error(x, x_)
             reconstruction_error_list.append(reconstruction_error)
         critic_score = torch.squeeze(critic_x(signal))
         critic_score_list.extend(critic_score.detach().cpu().numpy())
 
-        logging.info('test batch:{}'.format(batch))
+        elog.info('test batch:{}'.format(batch))
+
+    # print(reconstruction_error_list)
+    # print(critic_score_list)
 
     reconstruction_error_stats = stats.zscore(reconstruction_error_list)
     critic_score_stats = stats.zscore(critic_score_list)
@@ -248,7 +265,7 @@ def test_model(encoder, decoder, critic_x, dataloader, batch_size, device):
     recall = recall_score(y_true, y_predict, pos_label=0)
     f1score = f1_score(y_true, y_predict, pos_label=0)
 
-    logging.info('accuracy: {:.4f}, precision: {:.4f}, recall: {:.4f}, f1score: {:.4f}'
+    elog.info('accuracy: {:.4f}, precision: {:.4f}, recall: {:.4f}, f1score: {:.4f}'
                  .format(accuracy, precision, recall, f1score))
 
     return accuracy, precision, recall, f1score
@@ -258,13 +275,8 @@ if __name__ == "__main__":
 
     args = get_config()
     print(args)
-
-    # FIXME train/test logger
-    logging.basicConfig(
-        filename=f'./results/train_{args.epoch}_{args.batch}_{args.n_critics}_{args.lr}_{args.latent_space_dim}_{args.beta1}_{args.beta2}.log',
-        format='%(asctime)s %(levelname)-8s %(message)s',
-        level=logging.DEBUG,
-        datefmt='%Y-%m-%d %H:%M:%S')
+    tlog.info(args)
+    elog.info(args)
 
     # fix randomness
     torch.manual_seed(args.seed)
@@ -279,11 +291,6 @@ if __name__ == "__main__":
     gpu = 'cuda:' + args.device
     device = torch.device(gpu)
 
-    # load data
-    if args.datasets == 'wadi':
-        train_data = np.load('./_datasets/WADI/train.npy')
-
-    signal_shape = train_data.shape[1]
     encoder_path = f'models/encoder_{args.datasets}_{args.lr}_{args.latent_space_dim}.pt'
     encoder_opt_path = f'models/encoder_opt_{args.datasets}_{args.lr}_{args.latent_space_dim}.pt'
     decoder_path = f'models/decoder_{args.datasets}_{args.lr}_{args.latent_space_dim}.pt'
@@ -293,53 +300,80 @@ if __name__ == "__main__":
     critic_z_path = f'models/critic_z_{args.datasets}_{args.lr}_{args.latent_space_dim}.pt'
     critic_z_opt_path = f'models/critic_z_opt_{args.datasets}_{args.lr}_{args.latent_space_dim}.pt'
 
-    encoder = model.Encoder(encoder_path, args.batch, signal_shape, args.latent_space_dim)
-    decoder = model.Decoder(decoder_path, signal_shape, args.latent_space_dim)
-    critic_x = model.CriticX(critic_x_path, args.batch, signal_shape)
-    critic_z = model.CriticZ(critic_z_path, args.latent_space_dim)
-    encoder = encoder.to(device)
-    decoder = decoder.to(device)
-    critic_x = critic_x.to(device)
-    critic_z = critic_z.to(device)
+    if args.mode == 'all' or args.mode == 'train':
+        tlog.info('Start training')
 
-    optim_enc = optim.Adam(encoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
-    optim_dec = optim.Adam(decoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
-    optim_cx = optim.Adam(critic_x.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
-    optim_cz = optim.Adam(critic_z.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
+        # load data
+        if args.datasets == 'wadi':
+            train_data = np.load('./_datasets/WADI/train.npy')
+        elif args.datasets == 'swat':
+            train_data = np.load('./_datasets/SWaT/train.npy')
+        signal_shape = train_data.shape[1]
+        print(signal_shape)
 
-    # Train
-    # FIXME load model option
-    logging.info('Starting training')
-    cx_epoch_loss, cz_epoch_loss, encoder_epoch_loss, decoder_epoch_loss = list(), list(), list(), list()
-    for epoch in tqdm(range(args.epoch)):
-        logging.info('Epoch {}'.format(epoch))
+        # create model
+        encoder = model.Encoder(args.batch, signal_shape, args.latent_space_dim).to(device)
+        decoder = model.Decoder(signal_shape, args.latent_space_dim).to(device)
+        critic_x = model.CriticX(args.batch, signal_shape).to(device)
+        critic_z = model.CriticZ(args.latent_space_dim).to(device)
 
-        cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean \
-            = train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz, train_data,
-                          args.batch, signal_shape, args.n_critics, args.latent_space_dim, device, 0.2)
+        optim_enc = optim.Adam(encoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
+        optim_dec = optim.Adam(decoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
+        optim_cx = optim.Adam(critic_x.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
+        optim_cz = optim.Adam(critic_z.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
 
-        cx_epoch_loss.append(cx_loss_mean)
-        cz_epoch_loss.append(cz_loss_mean)
-        encoder_epoch_loss.append(encoder_loss_mean)
-        decoder_epoch_loss.append(decoder_loss_mean)
-        logging.info('Encoder decoder training done in epoch {}'.format(epoch))
-        logging.info('critic x loss {:.3f} critic z loss {:.3f} encoder loss {:.3f} decoder loss {:.3f}\n'.format(
-            cx_epoch_loss[-1], cz_epoch_loss[-1], encoder_epoch_loss[-1], decoder_epoch_loss[-1]))
+        # train
+        cx_epoch_loss, cz_epoch_loss, encoder_epoch_loss, decoder_epoch_loss = list(), list(), list(), list()
+        for epoch in tqdm(range(args.epoch)):
+            tlog.info('Epoch {}'.format(epoch))
 
-        if epoch % 10 == 0:
-            torch.save(encoder.state_dict(), encoder_path)
-            torch.save(decoder.state_dict(), decoder_path)
-            torch.save(critic_x.state_dict(), critic_x_path)
-            torch.save(critic_z.state_dict(), critic_z_path)
-            torch.save(optim_enc.state_dict(), encoder_opt_path)
-            torch.save(optim_dec.state_dict(), decoder_opt_path)
-            torch.save(optim_cx.state_dict(), critic_x_opt_path)
-            torch.save(optim_cz.state_dict(), critic_z_opt_path)
+            cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean \
+                = train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz,
+                              train_data,
+                              args.batch, signal_shape, args.n_critics, args.latent_space_dim, device, 0.2)
 
-    # Test
-    test_data = np.load('./_datasets/WADI/test.npy')
-    test_label = np.load('./_datasets/WADI/labels.npy')
-    test_dataset = WADIDataset(data=test_data, label=test_label)
-    test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
+            cx_epoch_loss.append(cx_loss_mean)
+            cz_epoch_loss.append(cz_loss_mean)
+            encoder_epoch_loss.append(encoder_loss_mean)
+            decoder_epoch_loss.append(decoder_loss_mean)
+            tlog.info('Encoder decoder training done in epoch {}'.format(epoch))
+            tlog.info('critic x loss {:.3f} critic z loss {:.3f} encoder loss {:.3f} decoder loss {:.3f}\n'.format(
+                cx_epoch_loss[-1], cz_epoch_loss[-1], encoder_epoch_loss[-1], decoder_epoch_loss[-1]))
 
-    accuracy, precision, recall, f1score = test_model(encoder, decoder, critic_x, test_loader, args.batch, device)
+            # save model
+            if epoch % 10 == 0:
+                torch.save(encoder.state_dict(), encoder_path)
+                torch.save(decoder.state_dict(), decoder_path)
+                torch.save(critic_x.state_dict(), critic_x_path)
+                torch.save(critic_z.state_dict(), critic_z_path)
+                torch.save(optim_enc.state_dict(), encoder_opt_path)
+                torch.save(optim_dec.state_dict(), decoder_opt_path)
+                torch.save(optim_cx.state_dict(), critic_x_opt_path)
+                torch.save(optim_cz.state_dict(), critic_z_opt_path)
+
+    elif args.mode == 'all' or args.mode == 'test':
+        elog.info('Start testing')
+
+        # load data
+        if args.datasets == 'wadi':
+            test_data = np.load('./_datasets/WADI/test.npy')
+            test_label = np.load('./_datasets/WADI/labels.npy')
+        elif args.datasets == 'swat':
+            test_data = np.load('./_datasets/SWaT/test.npy')
+            test_label = np.load('./_datasets/SWaT/labels.npy')
+        signal_shape = test_data.shape[1]
+
+        # FIXME remove sampling ratio
+        test_dataset = WADIDataset(data=test_data, label=test_label, sampling_ratio=0.001)
+        test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
+
+        # load model
+        encoder = model.Encoder(args.batch, signal_shape, args.latent_space_dim).to(device)
+        encoder.load_state_dict(torch.load(encoder_path))
+        decoder = model.Decoder(signal_shape, args.latent_space_dim).to(device)
+        decoder.load_state_dict(torch.load(decoder_path))
+        critic_x = model.CriticX(args.batch, signal_shape).to(device)
+        critic_x.load_state_dict(torch.load(critic_x_path))
+
+        accuracy, precision, recall, f1score = eval_model(encoder, decoder, critic_x, test_loader, args.batch, device)
+

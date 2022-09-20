@@ -1,6 +1,7 @@
+mode=train
 seed=0
 device=0
-for datasets in 'wadi'
+for datasets in 'swat'
 do
   for epoch in 200
   do
@@ -16,7 +17,7 @@ do
             do
               for beta2 in 0.999
                 do
-                  python3 -u main.py --tadgan tadgan --seed $seed --device $device --datasets $datasets --epoch $epoch --batch $batch --n_critics $n_critics --lr $lr --latent_space_dim $latent_space_dim --beta1 $beta1 --beta2 $beta2
+                  python3 -u main.py --tadgan tadgan --mode $mode --seed $seed --device $device --datasets $datasets --epoch $epoch --batch $batch --n_critics $n_critics --lr $lr --latent_space_dim $latent_space_dim --beta1 $beta1 --beta2 $beta2
                 done
             done
           done

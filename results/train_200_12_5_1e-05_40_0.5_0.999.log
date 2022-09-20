@@ -1,0 +1,1201 @@
+2022-09-19 19:17:01 INFO     Starting training
+2022-09-19 19:17:01 INFO     Epoch 0
+2022-09-19 19:17:01 INFO     Number of samples in train dataset 156907
+2022-09-19 19:22:41 INFO     Critic training done in epoch 0
+2022-09-19 19:24:37 INFO     Encoder decoder training done in epoch 0
+2022-09-19 19:24:37 INFO     critic x loss -97.575 critic z loss -6.283 encoder loss 258.140 decoder loss 14.663
+
+2022-09-19 19:24:37 INFO     Epoch 1
+2022-09-19 19:24:37 INFO     Number of samples in train dataset 156907
+2022-09-19 19:30:26 INFO     Critic training done in epoch 1
+2022-09-19 19:32:25 INFO     Encoder decoder training done in epoch 1
+2022-09-19 19:32:25 INFO     critic x loss -462.133 critic z loss -20.141 encoder loss 840.784 decoder loss 29.218
+
+2022-09-19 19:32:25 INFO     Epoch 2
+2022-09-19 19:32:25 INFO     Number of samples in train dataset 156907
+2022-09-19 19:38:17 INFO     Critic training done in epoch 2
+2022-09-19 19:40:16 INFO     Encoder decoder training done in epoch 2
+2022-09-19 19:40:16 INFO     critic x loss -1099.408 critic z loss -33.398 encoder loss 1715.207 decoder loss 43.716
+
+2022-09-19 19:40:16 INFO     Epoch 3
+2022-09-19 19:40:16 INFO     Number of samples in train dataset 156907
+2022-09-19 19:46:09 INFO     Critic training done in epoch 3
+2022-09-19 19:48:09 INFO     Encoder decoder training done in epoch 3
+2022-09-19 19:48:09 INFO     critic x loss -1977.530 critic z loss -47.311 encoder loss 2848.399 decoder loss 59.667
+
+2022-09-19 19:48:09 INFO     Epoch 4
+2022-09-19 19:48:09 INFO     Number of samples in train dataset 156907
+2022-09-19 19:54:02 INFO     Critic training done in epoch 4
+2022-09-19 19:56:02 INFO     Encoder decoder training done in epoch 4
+2022-09-19 19:56:02 INFO     critic x loss -3059.450 critic z loss -62.960 encoder loss 4234.644 decoder loss 76.641
+
+2022-09-19 19:56:02 INFO     Epoch 5
+2022-09-19 19:56:02 INFO     Number of samples in train dataset 156907
+2022-09-19 20:01:55 INFO     Critic training done in epoch 5
+2022-09-19 20:03:56 INFO     Encoder decoder training done in epoch 5
+2022-09-19 20:03:56 INFO     critic x loss -4384.667 critic z loss -78.644 encoder loss 5891.374 decoder loss 93.392
+
+2022-09-19 20:03:56 INFO     Epoch 6
+2022-09-19 20:03:56 INFO     Number of samples in train dataset 156907
+2022-09-19 20:09:50 INFO     Critic training done in epoch 6
+2022-09-19 20:11:50 INFO     Encoder decoder training done in epoch 6
+2022-09-19 20:11:50 INFO     critic x loss -5899.452 critic z loss -94.257 encoder loss 7769.257 decoder loss 109.667
+
+2022-09-19 20:11:50 INFO     Epoch 7
+2022-09-19 20:11:51 INFO     Number of samples in train dataset 156907
+2022-09-19 20:17:45 INFO     Critic training done in epoch 7
+2022-09-19 20:19:46 INFO     Encoder decoder training done in epoch 7
+2022-09-19 20:19:46 INFO     critic x loss -7552.758 critic z loss -108.680 encoder loss 9776.086 decoder loss 125.016
+
+2022-09-19 20:19:46 INFO     Epoch 8
+2022-09-19 20:19:46 INFO     Number of samples in train dataset 156907
+2022-09-19 20:25:42 INFO     Critic training done in epoch 8
+2022-09-19 20:27:42 INFO     Encoder decoder training done in epoch 8
+2022-09-19 20:27:42 INFO     critic x loss -9284.238 critic z loss -122.763 encoder loss 11904.820 decoder loss 140.251
+
+2022-09-19 20:27:42 INFO     Epoch 9
+2022-09-19 20:27:42 INFO     Number of samples in train dataset 156907
+2022-09-19 20:33:39 INFO     Critic training done in epoch 9
+2022-09-19 20:35:39 INFO     Encoder decoder training done in epoch 9
+2022-09-19 20:35:39 INFO     critic x loss -11148.200 critic z loss -137.518 encoder loss 14213.753 decoder loss 155.971
+
+2022-09-19 20:35:39 INFO     Epoch 10
+2022-09-19 20:35:39 INFO     Number of samples in train dataset 156907
+2022-09-19 20:41:36 INFO     Critic training done in epoch 10
+2022-09-19 20:43:37 INFO     Encoder decoder training done in epoch 10
+2022-09-19 20:43:37 INFO     critic x loss -13150.869 critic z loss -152.657 encoder loss 16708.133 decoder loss 172.174
+
+2022-09-19 20:43:37 INFO     Epoch 11
+2022-09-19 20:43:37 INFO     Number of samples in train dataset 156907
+2022-09-19 20:49:34 INFO     Critic training done in epoch 11
+2022-09-19 20:51:35 INFO     Encoder decoder training done in epoch 11
+2022-09-19 20:51:35 INFO     critic x loss -15258.618 critic z loss -167.309 encoder loss 19356.521 decoder loss 187.931
+
+2022-09-19 20:51:35 INFO     Epoch 12
+2022-09-19 20:51:35 INFO     Number of samples in train dataset 156907
+2022-09-19 20:57:32 INFO     Critic training done in epoch 12
+2022-09-19 20:59:33 INFO     Encoder decoder training done in epoch 12
+2022-09-19 20:59:33 INFO     critic x loss -17552.702 critic z loss -181.232 encoder loss 22234.291 decoder loss 203.167
+
+2022-09-19 20:59:33 INFO     Epoch 13
+2022-09-19 20:59:33 INFO     Number of samples in train dataset 156907
+2022-09-19 21:05:31 INFO     Critic training done in epoch 13
+2022-09-19 21:07:32 INFO     Encoder decoder training done in epoch 13
+2022-09-19 21:07:32 INFO     critic x loss -20030.705 critic z loss -195.118 encoder loss 25336.242 decoder loss 218.176
+
+2022-09-19 21:07:32 INFO     Epoch 14
+2022-09-19 21:07:32 INFO     Number of samples in train dataset 156907
+2022-09-19 21:13:30 INFO     Critic training done in epoch 14
+2022-09-19 21:15:31 INFO     Encoder decoder training done in epoch 14
+2022-09-19 21:15:31 INFO     critic x loss -22688.771 critic z loss -208.745 encoder loss 28639.955 decoder loss 232.766
+
+2022-09-19 21:15:31 INFO     Epoch 15
+2022-09-19 21:15:31 INFO     Number of samples in train dataset 156907
+2022-09-19 21:21:29 INFO     Critic training done in epoch 15
+2022-09-19 21:23:31 INFO     Encoder decoder training done in epoch 15
+2022-09-19 21:23:31 INFO     critic x loss -25441.366 critic z loss -222.096 encoder loss 32084.553 decoder loss 247.277
+
+2022-09-19 21:23:31 INFO     Epoch 16
+2022-09-19 21:23:31 INFO     Number of samples in train dataset 156907
+2022-09-19 21:29:29 INFO     Critic training done in epoch 16
+2022-09-19 21:31:30 INFO     Encoder decoder training done in epoch 16
+2022-09-19 21:31:30 INFO     critic x loss -28467.751 critic z loss -235.416 encoder loss 35849.395 decoder loss 261.771
+
+2022-09-19 21:31:30 INFO     Epoch 17
+2022-09-19 21:31:30 INFO     Number of samples in train dataset 156907
+2022-09-19 21:37:28 INFO     Critic training done in epoch 17
+2022-09-19 21:39:30 INFO     Encoder decoder training done in epoch 17
+2022-09-19 21:39:30 INFO     critic x loss -31577.789 critic z loss -248.971 encoder loss 39705.148 decoder loss 276.464
+
+2022-09-19 21:39:30 INFO     Epoch 18
+2022-09-19 21:39:30 INFO     Number of samples in train dataset 156907
+2022-09-19 21:45:28 INFO     Critic training done in epoch 18
+2022-09-19 21:47:30 INFO     Encoder decoder training done in epoch 18
+2022-09-19 21:47:30 INFO     critic x loss -34832.417 critic z loss -262.654 encoder loss 43778.770 decoder loss 291.246
+
+2022-09-19 21:47:30 INFO     Epoch 19
+2022-09-19 21:47:30 INFO     Number of samples in train dataset 156907
+2022-09-19 21:53:29 INFO     Critic training done in epoch 19
+2022-09-19 21:55:30 INFO     Encoder decoder training done in epoch 19
+2022-09-19 21:55:30 INFO     critic x loss -38280.136 critic z loss -276.608 encoder loss 48058.277 decoder loss 306.173
+
+2022-09-19 21:55:30 INFO     Epoch 20
+2022-09-19 21:55:30 INFO     Number of samples in train dataset 156907
+2022-09-19 22:01:29 INFO     Critic training done in epoch 20
+2022-09-19 22:03:31 INFO     Encoder decoder training done in epoch 20
+2022-09-19 22:03:31 INFO     critic x loss -41770.316 critic z loss -290.725 encoder loss 52378.496 decoder loss 321.125
+
+2022-09-19 22:03:31 INFO     Epoch 21
+2022-09-19 22:03:31 INFO     Number of samples in train dataset 156907
+2022-09-19 22:09:31 INFO     Critic training done in epoch 21
+2022-09-19 22:11:33 INFO     Encoder decoder training done in epoch 21
+2022-09-19 22:11:33 INFO     critic x loss -45336.060 critic z loss -305.108 encoder loss 56824.316 decoder loss 336.499
+
+2022-09-19 22:11:33 INFO     Epoch 22
+2022-09-19 22:11:33 INFO     Number of samples in train dataset 156907
+2022-09-19 22:17:32 INFO     Critic training done in epoch 22
+2022-09-19 22:19:34 INFO     Encoder decoder training done in epoch 22
+2022-09-19 22:19:34 INFO     critic x loss -49076.610 critic z loss -319.760 encoder loss 61526.223 decoder loss 351.921
+
+2022-09-19 22:19:34 INFO     Epoch 23
+2022-09-19 22:19:34 INFO     Number of samples in train dataset 156907
+2022-09-19 22:25:34 INFO     Critic training done in epoch 23
+2022-09-19 22:27:35 INFO     Encoder decoder training done in epoch 23
+2022-09-19 22:27:35 INFO     critic x loss -52837.284 critic z loss -334.394 encoder loss 66305.344 decoder loss 367.398
+
+2022-09-19 22:27:35 INFO     Epoch 24
+2022-09-19 22:27:36 INFO     Number of samples in train dataset 156907
+2022-09-19 22:33:35 INFO     Critic training done in epoch 24
+2022-09-19 22:35:38 INFO     Encoder decoder training done in epoch 24
+2022-09-19 22:35:38 INFO     critic x loss -56704.219 critic z loss -348.910 encoder loss 71156.922 decoder loss 382.570
+
+2022-09-19 22:35:38 INFO     Epoch 25
+2022-09-19 22:35:38 INFO     Number of samples in train dataset 156907
+2022-09-19 22:41:37 INFO     Critic training done in epoch 25
+2022-09-19 22:43:39 INFO     Encoder decoder training done in epoch 25
+2022-09-19 22:43:39 INFO     critic x loss -60419.480 critic z loss -363.310 encoder loss 75903.656 decoder loss 397.648
+
+2022-09-19 22:43:39 INFO     Epoch 26
+2022-09-19 22:43:39 INFO     Number of samples in train dataset 156907
+2022-09-19 22:49:40 INFO     Critic training done in epoch 26
+2022-09-19 22:51:42 INFO     Encoder decoder training done in epoch 26
+2022-09-19 22:51:42 INFO     critic x loss -64324.574 critic z loss -377.357 encoder loss 80890.297 decoder loss 412.584
+
+2022-09-19 22:51:42 INFO     Epoch 27
+2022-09-19 22:51:42 INFO     Number of samples in train dataset 156907
+2022-09-19 22:57:42 INFO     Critic training done in epoch 27
+2022-09-19 22:59:44 INFO     Encoder decoder training done in epoch 27
+2022-09-19 22:59:44 INFO     critic x loss -68294.990 critic z loss -391.682 encoder loss 85998.859 decoder loss 427.742
+
+2022-09-19 22:59:44 INFO     Epoch 28
+2022-09-19 22:59:44 INFO     Number of samples in train dataset 156907
+2022-09-19 23:05:45 INFO     Critic training done in epoch 28
+2022-09-19 23:07:49 INFO     Encoder decoder training done in epoch 28
+2022-09-19 23:07:49 INFO     critic x loss -72194.356 critic z loss -405.815 encoder loss 91095.156 decoder loss 442.330
+
+2022-09-19 23:07:49 INFO     Epoch 29
+2022-09-19 23:07:49 INFO     Number of samples in train dataset 156907
+2022-09-19 23:13:52 INFO     Critic training done in epoch 29
+2022-09-19 23:15:54 INFO     Encoder decoder training done in epoch 29
+2022-09-19 23:15:54 INFO     critic x loss -76349.463 critic z loss -419.818 encoder loss 96429.609 decoder loss 457.133
+
+2022-09-19 23:15:54 INFO     Epoch 30
+2022-09-19 23:15:54 INFO     Number of samples in train dataset 156907
+2022-09-19 23:21:55 INFO     Critic training done in epoch 30
+2022-09-19 23:23:58 INFO     Encoder decoder training done in epoch 30
+2022-09-19 23:23:58 INFO     critic x loss -80465.386 critic z loss -433.555 encoder loss 101780.859 decoder loss 471.900
+
+2022-09-19 23:23:58 INFO     Epoch 31
+2022-09-19 23:23:58 INFO     Number of samples in train dataset 156907
+2022-09-19 23:29:59 INFO     Critic training done in epoch 31
+2022-09-19 23:32:01 INFO     Encoder decoder training done in epoch 31
+2022-09-19 23:32:01 INFO     critic x loss -84649.892 critic z loss -446.994 encoder loss 107220.703 decoder loss 486.230
+
+2022-09-19 23:32:01 INFO     Epoch 32
+2022-09-19 23:32:01 INFO     Number of samples in train dataset 156907
+2022-09-19 23:38:03 INFO     Critic training done in epoch 32
+2022-09-19 23:40:05 INFO     Encoder decoder training done in epoch 32
+2022-09-19 23:40:05 INFO     critic x loss -88920.618 critic z loss -460.223 encoder loss 112825.914 decoder loss 500.402
+
+2022-09-19 23:40:05 INFO     Epoch 33
+2022-09-19 23:40:06 INFO     Number of samples in train dataset 156907
+2022-09-19 23:46:07 INFO     Critic training done in epoch 33
+2022-09-19 23:48:10 INFO     Encoder decoder training done in epoch 33
+2022-09-19 23:48:10 INFO     critic x loss -93282.237 critic z loss -473.272 encoder loss 118487.742 decoder loss 514.972
+
+2022-09-19 23:48:10 INFO     Epoch 34
+2022-09-19 23:48:10 INFO     Number of samples in train dataset 156907
+2022-09-19 23:54:12 INFO     Critic training done in epoch 34
+2022-09-19 23:56:15 INFO     Encoder decoder training done in epoch 34
+2022-09-19 23:56:15 INFO     critic x loss -97600.676 critic z loss -486.614 encoder loss 124196.906 decoder loss 529.032
+
+2022-09-19 23:56:15 INFO     Epoch 35
+2022-09-19 23:56:15 INFO     Number of samples in train dataset 156907
+2022-09-20 00:02:17 INFO     Critic training done in epoch 35
+2022-09-20 00:04:23 INFO     Encoder decoder training done in epoch 35
+2022-09-20 00:04:23 INFO     critic x loss -101922.890 critic z loss -499.867 encoder loss 129863.133 decoder loss 543.356
+
+2022-09-20 00:04:23 INFO     Epoch 36
+2022-09-20 00:04:23 INFO     Number of samples in train dataset 156907
+2022-09-20 00:10:31 INFO     Critic training done in epoch 36
+2022-09-20 00:12:33 INFO     Encoder decoder training done in epoch 36
+2022-09-20 00:12:33 INFO     critic x loss -106576.948 critic z loss -513.060 encoder loss 136009.734 decoder loss 557.399
+
+2022-09-20 00:12:33 INFO     Epoch 37
+2022-09-20 00:12:34 INFO     Number of samples in train dataset 156907
+2022-09-20 00:18:40 INFO     Critic training done in epoch 37
+2022-09-20 00:20:43 INFO     Encoder decoder training done in epoch 37
+2022-09-20 00:20:43 INFO     critic x loss -110902.306 critic z loss -526.573 encoder loss 141801.859 decoder loss 571.703
+
+2022-09-20 00:20:43 INFO     Epoch 38
+2022-09-20 00:20:44 INFO     Number of samples in train dataset 156907
+2022-09-20 00:26:49 INFO     Critic training done in epoch 38
+2022-09-20 00:28:51 INFO     Encoder decoder training done in epoch 38
+2022-09-20 00:28:51 INFO     critic x loss -115461.077 critic z loss -539.781 encoder loss 147892.484 decoder loss 585.909
+
+2022-09-20 00:28:51 INFO     Epoch 39
+2022-09-20 00:28:51 INFO     Number of samples in train dataset 156907
+2022-09-20 00:34:54 INFO     Critic training done in epoch 39
+2022-09-20 00:36:57 INFO     Encoder decoder training done in epoch 39
+2022-09-20 00:36:57 INFO     critic x loss -119944.459 critic z loss -552.826 encoder loss 153902.172 decoder loss 599.825
+
+2022-09-20 00:36:57 INFO     Epoch 40
+2022-09-20 00:36:57 INFO     Number of samples in train dataset 156907
+2022-09-20 00:43:08 INFO     Critic training done in epoch 40
+2022-09-20 00:45:13 INFO     Encoder decoder training done in epoch 40
+2022-09-20 00:45:13 INFO     critic x loss -124634.022 critic z loss -566.287 encoder loss 160213.047 decoder loss 614.180
+
+2022-09-20 00:45:13 INFO     Epoch 41
+2022-09-20 00:45:13 INFO     Number of samples in train dataset 156907
+2022-09-20 00:51:25 INFO     Critic training done in epoch 41
+2022-09-20 00:53:28 INFO     Encoder decoder training done in epoch 41
+2022-09-20 00:53:28 INFO     critic x loss -129242.082 critic z loss -579.552 encoder loss 166502.641 decoder loss 628.471
+
+2022-09-20 00:53:28 INFO     Epoch 42
+2022-09-20 00:53:28 INFO     Number of samples in train dataset 156907
+2022-09-20 00:59:32 INFO     Critic training done in epoch 42
+2022-09-20 01:01:34 INFO     Encoder decoder training done in epoch 42
+2022-09-20 01:01:34 INFO     critic x loss -133963.205 critic z loss -592.878 encoder loss 172862.516 decoder loss 642.542
+
+2022-09-20 01:01:34 INFO     Epoch 43
+2022-09-20 01:01:34 INFO     Number of samples in train dataset 156907
+2022-09-20 01:07:36 INFO     Critic training done in epoch 43
+2022-09-20 01:09:39 INFO     Encoder decoder training done in epoch 43
+2022-09-20 01:09:39 INFO     critic x loss -138584.870 critic z loss -605.852 encoder loss 179297.000 decoder loss 656.520
+
+2022-09-20 01:09:39 INFO     Epoch 44
+2022-09-20 01:09:39 INFO     Number of samples in train dataset 156907
+2022-09-20 01:15:41 INFO     Critic training done in epoch 44
+2022-09-20 01:17:44 INFO     Encoder decoder training done in epoch 44
+2022-09-20 01:17:44 INFO     critic x loss -143523.210 critic z loss -619.373 encoder loss 185873.109 decoder loss 671.087
+
+2022-09-20 01:17:44 INFO     Epoch 45
+2022-09-20 01:17:44 INFO     Number of samples in train dataset 156907
+2022-09-20 01:23:46 INFO     Critic training done in epoch 45
+2022-09-20 01:25:49 INFO     Encoder decoder training done in epoch 45
+2022-09-20 01:25:49 INFO     critic x loss -148443.393 critic z loss -632.734 encoder loss 192612.828 decoder loss 685.565
+
+2022-09-20 01:25:49 INFO     Epoch 46
+2022-09-20 01:25:49 INFO     Number of samples in train dataset 156907
+2022-09-20 01:31:52 INFO     Critic training done in epoch 46
+2022-09-20 01:33:54 INFO     Encoder decoder training done in epoch 46
+2022-09-20 01:33:54 INFO     critic x loss -153047.444 critic z loss -646.403 encoder loss 198990.297 decoder loss 700.223
+
+2022-09-20 01:33:54 INFO     Epoch 47
+2022-09-20 01:33:55 INFO     Number of samples in train dataset 156907
+2022-09-20 01:39:58 INFO     Critic training done in epoch 47
+2022-09-20 01:42:00 INFO     Encoder decoder training done in epoch 47
+2022-09-20 01:42:00 INFO     critic x loss -157983.456 critic z loss -659.928 encoder loss 205831.297 decoder loss 714.606
+
+2022-09-20 01:42:00 INFO     Epoch 48
+2022-09-20 01:42:01 INFO     Number of samples in train dataset 156907
+2022-09-20 01:48:04 INFO     Critic training done in epoch 48
+2022-09-20 01:50:06 INFO     Encoder decoder training done in epoch 48
+2022-09-20 01:50:06 INFO     critic x loss -163003.066 critic z loss -673.383 encoder loss 212759.109 decoder loss 729.307
+
+2022-09-20 01:50:06 INFO     Epoch 49
+2022-09-20 01:50:07 INFO     Number of samples in train dataset 156907
+2022-09-20 01:56:10 INFO     Critic training done in epoch 49
+2022-09-20 01:58:13 INFO     Encoder decoder training done in epoch 49
+2022-09-20 01:58:13 INFO     critic x loss -167806.824 critic z loss -687.305 encoder loss 219527.312 decoder loss 743.876
+
+2022-09-20 01:58:13 INFO     Epoch 50
+2022-09-20 01:58:13 INFO     Number of samples in train dataset 156907
+2022-09-20 02:04:16 INFO     Critic training done in epoch 50
+2022-09-20 02:06:19 INFO     Encoder decoder training done in epoch 50
+2022-09-20 02:06:19 INFO     critic x loss -172559.587 critic z loss -701.070 encoder loss 226276.531 decoder loss 758.548
+
+2022-09-20 02:06:19 INFO     Epoch 51
+2022-09-20 02:06:19 INFO     Number of samples in train dataset 156907
+2022-09-20 02:12:23 INFO     Critic training done in epoch 51
+2022-09-20 02:14:26 INFO     Encoder decoder training done in epoch 51
+2022-09-20 02:14:26 INFO     critic x loss -177586.856 critic z loss -714.556 encoder loss 233321.297 decoder loss 773.089
+
+2022-09-20 02:14:26 INFO     Epoch 52
+2022-09-20 02:14:26 INFO     Number of samples in train dataset 156907
+2022-09-20 02:20:30 INFO     Critic training done in epoch 52
+2022-09-20 02:22:33 INFO     Encoder decoder training done in epoch 52
+2022-09-20 02:22:33 INFO     critic x loss -182371.473 critic z loss -728.342 encoder loss 240121.672 decoder loss 787.995
+
+2022-09-20 02:22:33 INFO     Epoch 53
+2022-09-20 02:22:33 INFO     Number of samples in train dataset 156907
+2022-09-20 02:28:36 INFO     Critic training done in epoch 53
+2022-09-20 02:30:39 INFO     Encoder decoder training done in epoch 53
+2022-09-20 02:30:39 INFO     critic x loss -187231.513 critic z loss -742.291 encoder loss 246984.922 decoder loss 802.535
+
+2022-09-20 02:30:39 INFO     Epoch 54
+2022-09-20 02:30:39 INFO     Number of samples in train dataset 156907
+2022-09-20 02:36:43 INFO     Critic training done in epoch 54
+2022-09-20 02:38:46 INFO     Encoder decoder training done in epoch 54
+2022-09-20 02:38:46 INFO     critic x loss -192368.353 critic z loss -755.790 encoder loss 254337.266 decoder loss 816.941
+
+2022-09-20 02:38:46 INFO     Epoch 55
+2022-09-20 02:38:46 INFO     Number of samples in train dataset 156907
+2022-09-20 02:44:50 INFO     Critic training done in epoch 55
+2022-09-20 02:46:53 INFO     Encoder decoder training done in epoch 55
+2022-09-20 02:46:53 INFO     critic x loss -196942.270 critic z loss -769.719 encoder loss 261092.141 decoder loss 831.937
+
+2022-09-20 02:46:53 INFO     Epoch 56
+2022-09-20 02:46:53 INFO     Number of samples in train dataset 156907
+2022-09-20 02:52:57 INFO     Critic training done in epoch 56
+2022-09-20 02:55:00 INFO     Encoder decoder training done in epoch 56
+2022-09-20 02:55:00 INFO     critic x loss -201803.090 critic z loss -783.548 encoder loss 268210.938 decoder loss 846.598
+
+2022-09-20 02:55:00 INFO     Epoch 57
+2022-09-20 02:55:00 INFO     Number of samples in train dataset 156907
+2022-09-20 03:01:04 INFO     Critic training done in epoch 57
+2022-09-20 03:03:07 INFO     Encoder decoder training done in epoch 57
+2022-09-20 03:03:07 INFO     critic x loss -206909.667 critic z loss -797.085 encoder loss 275542.625 decoder loss 860.850
+
+2022-09-20 03:03:07 INFO     Epoch 58
+2022-09-20 03:03:07 INFO     Number of samples in train dataset 156907
+2022-09-20 03:09:12 INFO     Critic training done in epoch 58
+2022-09-20 03:11:15 INFO     Encoder decoder training done in epoch 58
+2022-09-20 03:11:15 INFO     critic x loss -211604.698 critic z loss -810.470 encoder loss 282645.531 decoder loss 875.762
+
+2022-09-20 03:11:15 INFO     Epoch 59
+2022-09-20 03:11:15 INFO     Number of samples in train dataset 156907
+2022-09-20 03:17:19 INFO     Critic training done in epoch 59
+2022-09-20 03:19:22 INFO     Encoder decoder training done in epoch 59
+2022-09-20 03:19:22 INFO     critic x loss -216535.990 critic z loss -824.230 encoder loss 289896.188 decoder loss 890.369
+
+2022-09-20 03:19:22 INFO     Epoch 60
+2022-09-20 03:19:22 INFO     Number of samples in train dataset 156907
+2022-09-20 03:25:27 INFO     Critic training done in epoch 60
+2022-09-20 03:27:30 INFO     Encoder decoder training done in epoch 60
+2022-09-20 03:27:30 INFO     critic x loss -221408.843 critic z loss -837.549 encoder loss 297104.688 decoder loss 905.126
+
+2022-09-20 03:27:30 INFO     Epoch 61
+2022-09-20 03:27:30 INFO     Number of samples in train dataset 156907
+2022-09-20 03:33:35 INFO     Critic training done in epoch 61
+2022-09-20 03:35:38 INFO     Encoder decoder training done in epoch 61
+2022-09-20 03:35:38 INFO     critic x loss -225776.718 critic z loss -851.306 encoder loss 303999.656 decoder loss 920.157
+
+2022-09-20 03:35:38 INFO     Epoch 62
+2022-09-20 03:35:38 INFO     Number of samples in train dataset 156907
+2022-09-20 03:41:43 INFO     Critic training done in epoch 62
+2022-09-20 03:43:46 INFO     Encoder decoder training done in epoch 62
+2022-09-20 03:43:46 INFO     critic x loss -230715.927 critic z loss -864.044 encoder loss 311414.156 decoder loss 934.439
+
+2022-09-20 03:43:46 INFO     Epoch 63
+2022-09-20 03:43:46 INFO     Number of samples in train dataset 156907
+2022-09-20 03:49:51 INFO     Critic training done in epoch 63
+2022-09-20 03:51:53 INFO     Encoder decoder training done in epoch 63
+2022-09-20 03:51:53 INFO     critic x loss -235293.940 critic z loss -877.546 encoder loss 318384.469 decoder loss 948.812
+
+2022-09-20 03:51:53 INFO     Epoch 64
+2022-09-20 03:51:53 INFO     Number of samples in train dataset 156907
+2022-09-20 03:57:59 INFO     Critic training done in epoch 64
+2022-09-20 04:00:01 INFO     Encoder decoder training done in epoch 64
+2022-09-20 04:00:01 INFO     critic x loss -240021.978 critic z loss -889.888 encoder loss 325812.438 decoder loss 963.272
+
+2022-09-20 04:00:01 INFO     Epoch 65
+2022-09-20 04:00:02 INFO     Number of samples in train dataset 156907
+2022-09-20 04:06:07 INFO     Critic training done in epoch 65
+2022-09-20 04:08:10 INFO     Encoder decoder training done in epoch 65
+2022-09-20 04:08:10 INFO     critic x loss -244854.411 critic z loss -902.897 encoder loss 333186.688 decoder loss 977.532
+
+2022-09-20 04:08:10 INFO     Epoch 66
+2022-09-20 04:08:10 INFO     Number of samples in train dataset 156907
+2022-09-20 04:14:16 INFO     Critic training done in epoch 66
+2022-09-20 04:16:18 INFO     Encoder decoder training done in epoch 66
+2022-09-20 04:16:18 INFO     critic x loss -249548.087 critic z loss -915.561 encoder loss 340641.031 decoder loss 991.993
+
+2022-09-20 04:16:18 INFO     Epoch 67
+2022-09-20 04:16:18 INFO     Number of samples in train dataset 156907
+2022-09-20 04:22:24 INFO     Critic training done in epoch 67
+2022-09-20 04:24:27 INFO     Encoder decoder training done in epoch 67
+2022-09-20 04:24:27 INFO     critic x loss -254282.345 critic z loss -927.952 encoder loss 348152.906 decoder loss 1005.988
+
+2022-09-20 04:24:27 INFO     Epoch 68
+2022-09-20 04:24:27 INFO     Number of samples in train dataset 156907
+2022-09-20 04:30:33 INFO     Critic training done in epoch 68
+2022-09-20 04:32:35 INFO     Encoder decoder training done in epoch 68
+2022-09-20 04:32:35 INFO     critic x loss -258799.989 critic z loss -940.703 encoder loss 355282.156 decoder loss 1020.265
+
+2022-09-20 04:32:35 INFO     Epoch 69
+2022-09-20 04:32:35 INFO     Number of samples in train dataset 156907
+2022-09-20 04:38:41 INFO     Critic training done in epoch 69
+2022-09-20 04:40:44 INFO     Encoder decoder training done in epoch 69
+2022-09-20 04:40:44 INFO     critic x loss -263081.592 critic z loss -953.896 encoder loss 362350.812 decoder loss 1034.661
+
+2022-09-20 04:40:44 INFO     Epoch 70
+2022-09-20 04:40:44 INFO     Number of samples in train dataset 156907
+2022-09-20 04:46:50 INFO     Critic training done in epoch 70
+2022-09-20 04:48:53 INFO     Encoder decoder training done in epoch 70
+2022-09-20 04:48:53 INFO     critic x loss -268514.143 critic z loss -965.998 encoder loss 370581.344 decoder loss 1048.708
+
+2022-09-20 04:48:53 INFO     Epoch 71
+2022-09-20 04:48:53 INFO     Number of samples in train dataset 156907
+2022-09-20 04:54:59 INFO     Critic training done in epoch 71
+2022-09-20 04:57:02 INFO     Encoder decoder training done in epoch 71
+2022-09-20 04:57:02 INFO     critic x loss -272768.235 critic z loss -979.119 encoder loss 377670.781 decoder loss 1062.574
+
+2022-09-20 04:57:02 INFO     Epoch 72
+2022-09-20 04:57:02 INFO     Number of samples in train dataset 156907
+2022-09-20 05:03:07 INFO     Critic training done in epoch 72
+2022-09-20 05:05:10 INFO     Encoder decoder training done in epoch 72
+2022-09-20 05:05:10 INFO     critic x loss -277949.548 critic z loss -991.621 encoder loss 385669.031 decoder loss 1076.717
+
+2022-09-20 05:05:10 INFO     Epoch 73
+2022-09-20 05:05:10 INFO     Number of samples in train dataset 156907
+2022-09-20 05:11:16 INFO     Critic training done in epoch 73
+2022-09-20 05:13:20 INFO     Encoder decoder training done in epoch 73
+2022-09-20 05:13:20 INFO     critic x loss -281867.430 critic z loss -1004.642 encoder loss 392463.219 decoder loss 1091.276
+
+2022-09-20 05:13:20 INFO     Epoch 74
+2022-09-20 05:13:20 INFO     Number of samples in train dataset 156907
+2022-09-20 05:19:26 INFO     Critic training done in epoch 74
+2022-09-20 05:21:29 INFO     Encoder decoder training done in epoch 74
+2022-09-20 05:21:29 INFO     critic x loss -285941.344 critic z loss -1017.131 encoder loss 399588.219 decoder loss 1105.199
+
+2022-09-20 05:21:29 INFO     Epoch 75
+2022-09-20 05:21:29 INFO     Number of samples in train dataset 156907
+2022-09-20 05:27:35 INFO     Critic training done in epoch 75
+2022-09-20 05:29:38 INFO     Encoder decoder training done in epoch 75
+2022-09-20 05:29:38 INFO     critic x loss -290050.235 critic z loss -1030.271 encoder loss 406751.844 decoder loss 1119.170
+
+2022-09-20 05:29:38 INFO     Epoch 76
+2022-09-20 05:29:38 INFO     Number of samples in train dataset 156907
+2022-09-20 05:35:45 INFO     Critic training done in epoch 76
+2022-09-20 05:37:48 INFO     Encoder decoder training done in epoch 76
+2022-09-20 05:37:48 INFO     critic x loss -295073.130 critic z loss -1042.875 encoder loss 414494.844 decoder loss 1133.511
+
+2022-09-20 05:37:48 INFO     Epoch 77
+2022-09-20 05:37:48 INFO     Number of samples in train dataset 156907
+2022-09-20 05:43:55 INFO     Critic training done in epoch 77
+2022-09-20 05:45:58 INFO     Encoder decoder training done in epoch 77
+2022-09-20 05:45:58 INFO     critic x loss -298959.605 critic z loss -1055.468 encoder loss 421598.656 decoder loss 1147.395
+
+2022-09-20 05:45:58 INFO     Epoch 78
+2022-09-20 05:45:58 INFO     Number of samples in train dataset 156907
+2022-09-20 05:52:04 INFO     Critic training done in epoch 78
+2022-09-20 05:54:07 INFO     Encoder decoder training done in epoch 78
+2022-09-20 05:54:07 INFO     critic x loss -303071.463 critic z loss -1068.679 encoder loss 428885.594 decoder loss 1162.104
+
+2022-09-20 05:54:07 INFO     Epoch 79
+2022-09-20 05:54:07 INFO     Number of samples in train dataset 156907
+2022-09-20 06:00:13 INFO     Critic training done in epoch 79
+2022-09-20 06:02:17 INFO     Encoder decoder training done in epoch 79
+2022-09-20 06:02:17 INFO     critic x loss -307817.827 critic z loss -1081.457 encoder loss 436887.969 decoder loss 1176.010
+
+2022-09-20 06:02:17 INFO     Epoch 80
+2022-09-20 06:02:17 INFO     Number of samples in train dataset 156907
+2022-09-20 06:08:23 INFO     Critic training done in epoch 80
+2022-09-20 06:10:26 INFO     Encoder decoder training done in epoch 80
+2022-09-20 06:10:26 INFO     critic x loss -311355.548 critic z loss -1094.271 encoder loss 443321.469 decoder loss 1190.810
+
+2022-09-20 06:10:26 INFO     Epoch 81
+2022-09-20 06:10:27 INFO     Number of samples in train dataset 156907
+2022-09-20 06:16:33 INFO     Critic training done in epoch 81
+2022-09-20 06:18:37 INFO     Encoder decoder training done in epoch 81
+2022-09-20 06:18:37 INFO     critic x loss -315047.738 critic z loss -1107.787 encoder loss 450434.312 decoder loss 1205.221
+
+2022-09-20 06:18:37 INFO     Epoch 82
+2022-09-20 06:18:37 INFO     Number of samples in train dataset 156907
+2022-09-20 06:24:43 INFO     Critic training done in epoch 82
+2022-09-20 06:26:46 INFO     Encoder decoder training done in epoch 82
+2022-09-20 06:26:46 INFO     critic x loss -319190.532 critic z loss -1121.450 encoder loss 457705.688 decoder loss 1219.479
+
+2022-09-20 06:26:46 INFO     Epoch 83
+2022-09-20 06:26:46 INFO     Number of samples in train dataset 156907
+2022-09-20 06:32:53 INFO     Critic training done in epoch 83
+2022-09-20 06:34:56 INFO     Encoder decoder training done in epoch 83
+2022-09-20 06:34:56 INFO     critic x loss -322265.921 critic z loss -1134.480 encoder loss 464225.062 decoder loss 1233.713
+
+2022-09-20 06:34:56 INFO     Epoch 84
+2022-09-20 06:34:56 INFO     Number of samples in train dataset 156907
+2022-09-20 06:41:03 INFO     Critic training done in epoch 84
+2022-09-20 06:43:06 INFO     Encoder decoder training done in epoch 84
+2022-09-20 06:43:06 INFO     critic x loss -326669.793 critic z loss -1147.654 encoder loss 472006.344 decoder loss 1248.382
+
+2022-09-20 06:43:06 INFO     Epoch 85
+2022-09-20 06:43:06 INFO     Number of samples in train dataset 156907
+2022-09-20 06:49:13 INFO     Critic training done in epoch 85
+2022-09-20 06:51:17 INFO     Encoder decoder training done in epoch 85
+2022-09-20 06:51:17 INFO     critic x loss -330119.240 critic z loss -1160.947 encoder loss 478847.625 decoder loss 1262.792
+
+2022-09-20 06:51:17 INFO     Epoch 86
+2022-09-20 06:51:17 INFO     Number of samples in train dataset 156907
+2022-09-20 06:57:24 INFO     Critic training done in epoch 86
+2022-09-20 06:59:27 INFO     Encoder decoder training done in epoch 86
+2022-09-20 06:59:27 INFO     critic x loss -334142.751 critic z loss -1174.109 encoder loss 486105.562 decoder loss 1277.515
+
+2022-09-20 06:59:27 INFO     Epoch 87
+2022-09-20 06:59:27 INFO     Number of samples in train dataset 156907
+2022-09-20 07:05:34 INFO     Critic training done in epoch 87
+2022-09-20 07:07:37 INFO     Encoder decoder training done in epoch 87
+2022-09-20 07:07:37 INFO     critic x loss -337135.804 critic z loss -1187.405 encoder loss 492826.750 decoder loss 1291.801
+
+2022-09-20 07:07:37 INFO     Epoch 88
+2022-09-20 07:07:38 INFO     Number of samples in train dataset 156907
+2022-09-20 07:13:45 INFO     Critic training done in epoch 88
+2022-09-20 07:15:48 INFO     Encoder decoder training done in epoch 88
+2022-09-20 07:15:48 INFO     critic x loss -340044.128 critic z loss -1200.978 encoder loss 499167.719 decoder loss 1306.161
+
+2022-09-20 07:15:48 INFO     Epoch 89
+2022-09-20 07:15:48 INFO     Number of samples in train dataset 156907
+2022-09-20 07:21:56 INFO     Critic training done in epoch 89
+2022-09-20 07:23:59 INFO     Encoder decoder training done in epoch 89
+2022-09-20 07:23:59 INFO     critic x loss -343162.320 critic z loss -1214.010 encoder loss 505519.812 decoder loss 1320.697
+
+2022-09-20 07:23:59 INFO     Epoch 90
+2022-09-20 07:23:59 INFO     Number of samples in train dataset 156907
+2022-09-20 07:30:06 INFO     Critic training done in epoch 90
+2022-09-20 07:32:09 INFO     Encoder decoder training done in epoch 90
+2022-09-20 07:32:09 INFO     critic x loss -346735.843 critic z loss -1227.528 encoder loss 512637.625 decoder loss 1335.196
+
+2022-09-20 07:32:09 INFO     Epoch 91
+2022-09-20 07:32:10 INFO     Number of samples in train dataset 156907
+2022-09-20 07:38:17 INFO     Critic training done in epoch 91
+2022-09-20 07:40:20 INFO     Encoder decoder training done in epoch 91
+2022-09-20 07:40:20 INFO     critic x loss -349267.338 critic z loss -1240.858 encoder loss 518949.781 decoder loss 1349.400
+
+2022-09-20 07:40:20 INFO     Epoch 92
+2022-09-20 07:40:21 INFO     Number of samples in train dataset 156907
+2022-09-20 07:46:28 INFO     Critic training done in epoch 92
+2022-09-20 07:48:31 INFO     Encoder decoder training done in epoch 92
+2022-09-20 07:48:31 INFO     critic x loss -351839.127 critic z loss -1254.014 encoder loss 524873.188 decoder loss 1363.672
+
+2022-09-20 07:48:31 INFO     Epoch 93
+2022-09-20 07:48:31 INFO     Number of samples in train dataset 156907
+2022-09-20 07:54:40 INFO     Critic training done in epoch 93
+2022-09-20 07:56:43 INFO     Encoder decoder training done in epoch 93
+2022-09-20 07:56:43 INFO     critic x loss -354897.300 critic z loss -1267.515 encoder loss 531594.062 decoder loss 1377.912
+
+2022-09-20 07:56:43 INFO     Epoch 94
+2022-09-20 07:56:43 INFO     Number of samples in train dataset 156907
+2022-09-20 08:02:51 INFO     Critic training done in epoch 94
+2022-09-20 08:04:54 INFO     Encoder decoder training done in epoch 94
+2022-09-20 08:04:54 INFO     critic x loss -357024.044 critic z loss -1280.519 encoder loss 537605.000 decoder loss 1393.067
+
+2022-09-20 08:04:54 INFO     Epoch 95
+2022-09-20 08:04:54 INFO     Number of samples in train dataset 156907
+2022-09-20 08:11:03 INFO     Critic training done in epoch 95
+2022-09-20 08:13:06 INFO     Encoder decoder training done in epoch 95
+2022-09-20 08:13:06 INFO     critic x loss -358971.248 critic z loss -1294.684 encoder loss 543139.375 decoder loss 1407.528
+
+2022-09-20 08:13:06 INFO     Epoch 96
+2022-09-20 08:13:06 INFO     Number of samples in train dataset 156907
+2022-09-20 08:19:13 INFO     Critic training done in epoch 96
+2022-09-20 08:21:17 INFO     Encoder decoder training done in epoch 96
+2022-09-20 08:21:17 INFO     critic x loss -360900.052 critic z loss -1307.844 encoder loss 548708.000 decoder loss 1422.278
+
+2022-09-20 08:21:17 INFO     Epoch 97
+2022-09-20 08:21:17 INFO     Number of samples in train dataset 156907
+2022-09-20 08:27:25 INFO     Critic training done in epoch 97
+2022-09-20 08:29:29 INFO     Encoder decoder training done in epoch 97
+2022-09-20 08:29:29 INFO     critic x loss -363917.760 critic z loss -1320.948 encoder loss 555225.938 decoder loss 1436.727
+
+2022-09-20 08:29:29 INFO     Epoch 98
+2022-09-20 08:29:29 INFO     Number of samples in train dataset 156907
+2022-09-20 08:35:36 INFO     Critic training done in epoch 98
+2022-09-20 08:37:40 INFO     Encoder decoder training done in epoch 98
+2022-09-20 08:37:40 INFO     critic x loss -366077.086 critic z loss -1334.170 encoder loss 561106.438 decoder loss 1450.780
+
+2022-09-20 08:37:40 INFO     Epoch 99
+2022-09-20 08:37:40 INFO     Number of samples in train dataset 156907
+2022-09-20 08:43:47 INFO     Critic training done in epoch 99
+2022-09-20 08:45:51 INFO     Encoder decoder training done in epoch 99
+2022-09-20 08:45:51 INFO     critic x loss -368016.238 critic z loss -1348.107 encoder loss 566070.812 decoder loss 1466.002
+
+2022-09-20 08:45:51 INFO     Epoch 100
+2022-09-20 08:45:51 INFO     Number of samples in train dataset 156907
+2022-09-20 08:51:59 INFO     Critic training done in epoch 100
+2022-09-20 08:54:03 INFO     Encoder decoder training done in epoch 100
+2022-09-20 08:54:03 INFO     critic x loss -370492.534 critic z loss -1360.826 encoder loss 572132.812 decoder loss 1478.878
+
+2022-09-20 08:54:03 INFO     Epoch 101
+2022-09-20 08:54:03 INFO     Number of samples in train dataset 156907
+2022-09-20 09:00:11 INFO     Critic training done in epoch 101
+2022-09-20 09:02:15 INFO     Encoder decoder training done in epoch 101
+2022-09-20 09:02:15 INFO     critic x loss -371636.347 critic z loss -1373.504 encoder loss 576802.625 decoder loss 1493.023
+
+2022-09-20 09:02:15 INFO     Epoch 102
+2022-09-20 09:02:15 INFO     Number of samples in train dataset 156907
+2022-09-20 09:08:23 INFO     Critic training done in epoch 102
+2022-09-20 09:10:27 INFO     Encoder decoder training done in epoch 102
+2022-09-20 09:10:27 INFO     critic x loss -371829.552 critic z loss -1385.522 encoder loss 580727.812 decoder loss 1506.150
+
+2022-09-20 09:10:27 INFO     Epoch 103
+2022-09-20 09:10:27 INFO     Number of samples in train dataset 156907
+2022-09-20 09:16:34 INFO     Critic training done in epoch 103
+2022-09-20 09:18:37 INFO     Encoder decoder training done in epoch 103
+2022-09-20 09:18:37 INFO     critic x loss -373804.977 critic z loss -1397.425 encoder loss 586070.438 decoder loss 1519.457
+
+2022-09-20 09:18:37 INFO     Epoch 104
+2022-09-20 09:18:38 INFO     Number of samples in train dataset 156907
+2022-09-20 09:24:44 INFO     Critic training done in epoch 104
+2022-09-20 09:26:48 INFO     Encoder decoder training done in epoch 104
+2022-09-20 09:26:48 INFO     critic x loss -375610.673 critic z loss -1410.015 encoder loss 591033.938 decoder loss 1533.754
+
+2022-09-20 09:26:48 INFO     Epoch 105
+2022-09-20 09:26:48 INFO     Number of samples in train dataset 156907
+2022-09-20 09:32:55 INFO     Critic training done in epoch 105
+2022-09-20 09:34:58 INFO     Encoder decoder training done in epoch 105
+2022-09-20 09:34:58 INFO     critic x loss -375938.526 critic z loss -1421.175 encoder loss 594794.875 decoder loss 1546.596
+
+2022-09-20 09:34:58 INFO     Epoch 106
+2022-09-20 09:34:58 INFO     Number of samples in train dataset 156907
+2022-09-20 09:41:05 INFO     Critic training done in epoch 106
+2022-09-20 09:43:08 INFO     Encoder decoder training done in epoch 106
+2022-09-20 09:43:08 INFO     critic x loss -378563.198 critic z loss -1433.672 encoder loss 601330.875 decoder loss 1559.299
+
+2022-09-20 09:43:08 INFO     Epoch 107
+2022-09-20 09:43:09 INFO     Number of samples in train dataset 156907
+2022-09-20 09:49:16 INFO     Critic training done in epoch 107
+2022-09-20 09:51:20 INFO     Encoder decoder training done in epoch 107
+2022-09-20 09:51:20 INFO     critic x loss -379945.453 critic z loss -1446.130 encoder loss 606184.562 decoder loss 1573.505
+
+2022-09-20 09:51:20 INFO     Epoch 108
+2022-09-20 09:51:20 INFO     Number of samples in train dataset 156907
+2022-09-20 09:57:27 INFO     Critic training done in epoch 108
+2022-09-20 09:59:30 INFO     Encoder decoder training done in epoch 108
+2022-09-20 09:59:30 INFO     critic x loss -381998.512 critic z loss -1458.326 encoder loss 611558.625 decoder loss 1586.476
+
+2022-09-20 09:59:30 INFO     Epoch 109
+2022-09-20 09:59:31 INFO     Number of samples in train dataset 156907
+2022-09-20 10:05:38 INFO     Critic training done in epoch 109
+2022-09-20 10:07:41 INFO     Encoder decoder training done in epoch 109
+2022-09-20 10:07:41 INFO     critic x loss -383595.342 critic z loss -1471.034 encoder loss 616739.062 decoder loss 1600.098
+
+2022-09-20 10:07:41 INFO     Epoch 110
+2022-09-20 10:07:41 INFO     Number of samples in train dataset 156907
+2022-09-20 10:13:48 INFO     Critic training done in epoch 110
+2022-09-20 10:15:52 INFO     Encoder decoder training done in epoch 110
+2022-09-20 10:15:52 INFO     critic x loss -384863.955 critic z loss -1482.480 encoder loss 621405.875 decoder loss 1612.530
+
+2022-09-20 10:15:52 INFO     Epoch 111
+2022-09-20 10:15:52 INFO     Number of samples in train dataset 156907
+2022-09-20 10:21:59 INFO     Critic training done in epoch 111
+2022-09-20 10:24:02 INFO     Encoder decoder training done in epoch 111
+2022-09-20 10:24:02 INFO     critic x loss -384871.341 critic z loss -1494.522 encoder loss 624994.375 decoder loss 1626.750
+
+2022-09-20 10:24:02 INFO     Epoch 112
+2022-09-20 10:24:03 INFO     Number of samples in train dataset 156907
+2022-09-20 10:30:10 INFO     Critic training done in epoch 112
+2022-09-20 10:32:13 INFO     Encoder decoder training done in epoch 112
+2022-09-20 10:32:13 INFO     critic x loss -387558.267 critic z loss -1506.832 encoder loss 631105.938 decoder loss 1639.562
+
+2022-09-20 10:32:13 INFO     Epoch 113
+2022-09-20 10:32:13 INFO     Number of samples in train dataset 156907
+2022-09-20 10:38:20 INFO     Critic training done in epoch 113
+2022-09-20 10:40:23 INFO     Encoder decoder training done in epoch 113
+2022-09-20 10:40:23 INFO     critic x loss -388030.080 critic z loss -1519.142 encoder loss 635523.312 decoder loss 1653.050
+
+2022-09-20 10:40:23 INFO     Epoch 114
+2022-09-20 10:40:23 INFO     Number of samples in train dataset 156907
+2022-09-20 10:46:31 INFO     Critic training done in epoch 114
+2022-09-20 10:48:34 INFO     Encoder decoder training done in epoch 114
+2022-09-20 10:48:34 INFO     critic x loss -389676.928 critic z loss -1531.170 encoder loss 641183.562 decoder loss 1665.533
+
+2022-09-20 10:48:34 INFO     Epoch 115
+2022-09-20 10:48:34 INFO     Number of samples in train dataset 156907
+2022-09-20 10:54:42 INFO     Critic training done in epoch 115
+2022-09-20 10:56:45 INFO     Encoder decoder training done in epoch 115
+2022-09-20 10:56:45 INFO     critic x loss -391914.177 critic z loss -1543.159 encoder loss 647043.062 decoder loss 1679.758
+
+2022-09-20 10:56:45 INFO     Epoch 116
+2022-09-20 10:56:45 INFO     Number of samples in train dataset 156907
+2022-09-20 11:02:53 INFO     Critic training done in epoch 116
+2022-09-20 11:04:56 INFO     Encoder decoder training done in epoch 116
+2022-09-20 11:04:56 INFO     critic x loss -393195.644 critic z loss -1555.646 encoder loss 651824.062 decoder loss 1692.797
+
+2022-09-20 11:04:56 INFO     Epoch 117
+2022-09-20 11:04:56 INFO     Number of samples in train dataset 156907
+2022-09-20 11:11:04 INFO     Critic training done in epoch 117
+2022-09-20 11:13:07 INFO     Encoder decoder training done in epoch 117
+2022-09-20 11:13:07 INFO     critic x loss -395915.667 critic z loss -1567.315 encoder loss 658345.625 decoder loss 1705.564
+
+2022-09-20 11:13:07 INFO     Epoch 118
+2022-09-20 11:13:07 INFO     Number of samples in train dataset 156907
+2022-09-20 11:19:14 INFO     Critic training done in epoch 118
+2022-09-20 11:21:18 INFO     Encoder decoder training done in epoch 118
+2022-09-20 11:21:18 INFO     critic x loss -395230.439 critic z loss -1580.023 encoder loss 661435.375 decoder loss 1718.195
+
+2022-09-20 11:21:18 INFO     Epoch 119
+2022-09-20 11:21:18 INFO     Number of samples in train dataset 156907
+2022-09-20 11:27:25 INFO     Critic training done in epoch 119
+2022-09-20 11:29:29 INFO     Encoder decoder training done in epoch 119
+2022-09-20 11:29:29 INFO     critic x loss -398214.793 critic z loss -1591.656 encoder loss 668020.688 decoder loss 1731.604
+
+2022-09-20 11:29:29 INFO     Epoch 120
+2022-09-20 11:29:29 INFO     Number of samples in train dataset 156907
+2022-09-20 11:35:36 INFO     Critic training done in epoch 120
+2022-09-20 11:37:39 INFO     Encoder decoder training done in epoch 120
+2022-09-20 11:37:39 INFO     critic x loss -398049.461 critic z loss -1603.629 encoder loss 671585.000 decoder loss 1744.878
+
+2022-09-20 11:37:39 INFO     Epoch 121
+2022-09-20 11:37:39 INFO     Number of samples in train dataset 156907
+2022-09-20 11:43:47 INFO     Critic training done in epoch 121
+2022-09-20 11:45:50 INFO     Encoder decoder training done in epoch 121
+2022-09-20 11:45:50 INFO     critic x loss -399669.663 critic z loss -1615.207 encoder loss 677517.812 decoder loss 1757.319
+
+2022-09-20 11:45:50 INFO     Epoch 122
+2022-09-20 11:45:51 INFO     Number of samples in train dataset 156907
+2022-09-20 11:51:58 INFO     Critic training done in epoch 122
+2022-09-20 11:54:01 INFO     Encoder decoder training done in epoch 122
+2022-09-20 11:54:01 INFO     critic x loss -401247.461 critic z loss -1628.009 encoder loss 682758.812 decoder loss 1770.909
+
+2022-09-20 11:54:01 INFO     Epoch 123
+2022-09-20 11:54:01 INFO     Number of samples in train dataset 156907
+2022-09-20 12:00:09 INFO     Critic training done in epoch 123
+2022-09-20 12:02:12 INFO     Encoder decoder training done in epoch 123
+2022-09-20 12:02:12 INFO     critic x loss -402037.549 critic z loss -1639.219 encoder loss 687396.438 decoder loss 1784.067
+
+2022-09-20 12:02:12 INFO     Epoch 124
+2022-09-20 12:02:13 INFO     Number of samples in train dataset 156907
+2022-09-20 12:08:20 INFO     Critic training done in epoch 124
+2022-09-20 12:10:23 INFO     Encoder decoder training done in epoch 124
+2022-09-20 12:10:23 INFO     critic x loss -403327.044 critic z loss -1651.719 encoder loss 693155.562 decoder loss 1797.118
+
+2022-09-20 12:10:23 INFO     Epoch 125
+2022-09-20 12:10:23 INFO     Number of samples in train dataset 156907
+2022-09-20 12:16:31 INFO     Critic training done in epoch 125
+2022-09-20 12:18:34 INFO     Encoder decoder training done in epoch 125
+2022-09-20 12:18:34 INFO     critic x loss -405516.630 critic z loss -1663.093 encoder loss 698422.875 decoder loss 1809.188
+
+2022-09-20 12:18:34 INFO     Epoch 126
+2022-09-20 12:18:34 INFO     Number of samples in train dataset 156907
+2022-09-20 12:24:42 INFO     Critic training done in epoch 126
+2022-09-20 12:26:45 INFO     Encoder decoder training done in epoch 126
+2022-09-20 12:26:45 INFO     critic x loss -407013.812 critic z loss -1674.807 encoder loss 704055.750 decoder loss 1823.021
+
+2022-09-20 12:26:45 INFO     Epoch 127
+2022-09-20 12:26:45 INFO     Number of samples in train dataset 156907
+2022-09-20 12:32:53 INFO     Critic training done in epoch 127
+2022-09-20 12:34:57 INFO     Encoder decoder training done in epoch 127
+2022-09-20 12:34:57 INFO     critic x loss -407802.480 critic z loss -1686.523 encoder loss 708903.312 decoder loss 1835.186
+
+2022-09-20 12:34:57 INFO     Epoch 128
+2022-09-20 12:34:57 INFO     Number of samples in train dataset 156907
+2022-09-20 12:41:05 INFO     Critic training done in epoch 128
+2022-09-20 12:43:08 INFO     Encoder decoder training done in epoch 128
+2022-09-20 12:43:08 INFO     critic x loss -409752.371 critic z loss -1698.089 encoder loss 714967.812 decoder loss 1847.855
+
+2022-09-20 12:43:08 INFO     Epoch 129
+2022-09-20 12:43:08 INFO     Number of samples in train dataset 156907
+2022-09-20 12:49:16 INFO     Critic training done in epoch 129
+2022-09-20 12:51:19 INFO     Encoder decoder training done in epoch 129
+2022-09-20 12:51:19 INFO     critic x loss -410501.462 critic z loss -1709.852 encoder loss 719654.562 decoder loss 1860.975
+
+2022-09-20 12:51:19 INFO     Epoch 130
+2022-09-20 12:51:19 INFO     Number of samples in train dataset 156907
+2022-09-20 12:57:27 INFO     Critic training done in epoch 130
+2022-09-20 12:59:30 INFO     Encoder decoder training done in epoch 130
+2022-09-20 12:59:30 INFO     critic x loss -412468.558 critic z loss -1721.587 encoder loss 725200.812 decoder loss 1873.248
+
+2022-09-20 12:59:30 INFO     Epoch 131
+2022-09-20 12:59:30 INFO     Number of samples in train dataset 156907
+2022-09-20 13:05:38 INFO     Critic training done in epoch 131
+2022-09-20 13:07:41 INFO     Encoder decoder training done in epoch 131
+2022-09-20 13:07:41 INFO     critic x loss -413512.229 critic z loss -1733.862 encoder loss 730835.625 decoder loss 1887.018
+
+2022-09-20 13:07:41 INFO     Epoch 132
+2022-09-20 13:07:41 INFO     Number of samples in train dataset 156907
+2022-09-20 13:13:49 INFO     Critic training done in epoch 132
+2022-09-20 13:15:52 INFO     Encoder decoder training done in epoch 132
+2022-09-20 13:15:52 INFO     critic x loss -414440.749 critic z loss -1745.824 encoder loss 735371.562 decoder loss 1899.962
+
+2022-09-20 13:15:52 INFO     Epoch 133
+2022-09-20 13:15:52 INFO     Number of samples in train dataset 156907
+2022-09-20 13:22:00 INFO     Critic training done in epoch 133
+2022-09-20 13:24:03 INFO     Encoder decoder training done in epoch 133
+2022-09-20 13:24:03 INFO     critic x loss -416106.327 critic z loss -1756.805 encoder loss 741574.750 decoder loss 1912.570
+
+2022-09-20 13:24:03 INFO     Epoch 134
+2022-09-20 13:24:03 INFO     Number of samples in train dataset 156907
+2022-09-20 13:30:11 INFO     Critic training done in epoch 134
+2022-09-20 13:32:14 INFO     Encoder decoder training done in epoch 134
+2022-09-20 13:32:14 INFO     critic x loss -416851.614 critic z loss -1769.558 encoder loss 746860.438 decoder loss 1925.709
+
+2022-09-20 13:32:14 INFO     Epoch 135
+2022-09-20 13:32:14 INFO     Number of samples in train dataset 156907
+2022-09-20 13:38:23 INFO     Critic training done in epoch 135
+2022-09-20 13:40:26 INFO     Encoder decoder training done in epoch 135
+2022-09-20 13:40:26 INFO     critic x loss -418415.070 critic z loss -1780.792 encoder loss 751910.625 decoder loss 1937.559
+
+2022-09-20 13:40:26 INFO     Epoch 136
+2022-09-20 13:40:26 INFO     Number of samples in train dataset 156907
+2022-09-20 13:46:35 INFO     Critic training done in epoch 136
+2022-09-20 13:48:38 INFO     Encoder decoder training done in epoch 136
+2022-09-20 13:48:38 INFO     critic x loss -418595.790 critic z loss -1792.932 encoder loss 756515.688 decoder loss 1951.598
+
+2022-09-20 13:48:38 INFO     Epoch 137
+2022-09-20 13:48:38 INFO     Number of samples in train dataset 156907
+2022-09-20 13:54:46 INFO     Critic training done in epoch 137
+2022-09-20 13:56:49 INFO     Encoder decoder training done in epoch 137
+2022-09-20 13:56:49 INFO     critic x loss -420335.718 critic z loss -1802.619 encoder loss 761985.375 decoder loss 1962.869
+
+2022-09-20 13:56:49 INFO     Epoch 138
+2022-09-20 13:56:49 INFO     Number of samples in train dataset 156907
+2022-09-20 14:02:58 INFO     Critic training done in epoch 138
+2022-09-20 14:05:01 INFO     Encoder decoder training done in epoch 138
+2022-09-20 14:05:01 INFO     critic x loss -422340.481 critic z loss -1814.837 encoder loss 769123.438 decoder loss 1975.314
+
+2022-09-20 14:05:01 INFO     Epoch 139
+2022-09-20 14:05:01 INFO     Number of samples in train dataset 156907
+2022-09-20 14:11:10 INFO     Critic training done in epoch 139
+2022-09-20 14:13:13 INFO     Encoder decoder training done in epoch 139
+2022-09-20 14:13:13 INFO     critic x loss -421873.204 critic z loss -1826.020 encoder loss 772772.812 decoder loss 1988.427
+
+2022-09-20 14:13:13 INFO     Epoch 140
+2022-09-20 14:13:13 INFO     Number of samples in train dataset 156907
+2022-09-20 14:19:21 INFO     Critic training done in epoch 140
+2022-09-20 14:21:24 INFO     Encoder decoder training done in epoch 140
+2022-09-20 14:21:24 INFO     critic x loss -422839.097 critic z loss -1837.261 encoder loss 777702.188 decoder loss 2001.208
+
+2022-09-20 14:21:24 INFO     Epoch 141
+2022-09-20 14:21:24 INFO     Number of samples in train dataset 156907
+2022-09-20 14:27:34 INFO     Critic training done in epoch 141
+2022-09-20 14:29:36 INFO     Encoder decoder training done in epoch 141
+2022-09-20 14:29:36 INFO     critic x loss -425000.528 critic z loss -1849.078 encoder loss 784527.188 decoder loss 2013.284
+
+2022-09-20 14:29:36 INFO     Epoch 142
+2022-09-20 14:29:36 INFO     Number of samples in train dataset 156907
+2022-09-20 14:35:45 INFO     Critic training done in epoch 142
+2022-09-20 14:37:48 INFO     Encoder decoder training done in epoch 142
+2022-09-20 14:37:48 INFO     critic x loss -424629.736 critic z loss -1860.604 encoder loss 788058.750 decoder loss 2026.259
+
+2022-09-20 14:37:48 INFO     Epoch 143
+2022-09-20 14:37:48 INFO     Number of samples in train dataset 156907
+2022-09-20 14:43:57 INFO     Critic training done in epoch 143
+2022-09-20 14:46:00 INFO     Encoder decoder training done in epoch 143
+2022-09-20 14:46:00 INFO     critic x loss -425821.876 critic z loss -1872.649 encoder loss 793709.312 decoder loss 2039.615
+
+2022-09-20 14:46:00 INFO     Epoch 144
+2022-09-20 14:46:00 INFO     Number of samples in train dataset 156907
+2022-09-20 14:52:09 INFO     Critic training done in epoch 144
+2022-09-20 14:54:12 INFO     Encoder decoder training done in epoch 144
+2022-09-20 14:54:12 INFO     critic x loss -425321.083 critic z loss -1883.596 encoder loss 798100.500 decoder loss 2051.711
+
+2022-09-20 14:54:12 INFO     Epoch 145
+2022-09-20 14:54:12 INFO     Number of samples in train dataset 156907
+2022-09-20 15:00:21 INFO     Critic training done in epoch 145
+2022-09-20 15:02:23 INFO     Encoder decoder training done in epoch 145
+2022-09-20 15:02:23 INFO     critic x loss -426736.508 critic z loss -1895.320 encoder loss 804118.000 decoder loss 2064.587
+
+2022-09-20 15:02:23 INFO     Epoch 146
+2022-09-20 15:02:24 INFO     Number of samples in train dataset 156907
+2022-09-20 15:08:33 INFO     Critic training done in epoch 146
+2022-09-20 15:10:35 INFO     Encoder decoder training done in epoch 146
+2022-09-20 15:10:35 INFO     critic x loss -428060.886 critic z loss -1906.297 encoder loss 809229.812 decoder loss 2077.601
+
+2022-09-20 15:10:35 INFO     Epoch 147
+2022-09-20 15:10:36 INFO     Number of samples in train dataset 156907
+2022-09-20 15:16:45 INFO     Critic training done in epoch 147
+2022-09-20 15:18:48 INFO     Encoder decoder training done in epoch 147
+2022-09-20 15:18:48 INFO     critic x loss -427361.032 critic z loss -1918.679 encoder loss 813230.188 decoder loss 2090.095
+
+2022-09-20 15:18:48 INFO     Epoch 148
+2022-09-20 15:18:48 INFO     Number of samples in train dataset 156907
+2022-09-20 15:24:58 INFO     Critic training done in epoch 148
+2022-09-20 15:27:01 INFO     Encoder decoder training done in epoch 148
+2022-09-20 15:27:01 INFO     critic x loss -427227.799 critic z loss -1929.437 encoder loss 818092.500 decoder loss 2102.954
+
+2022-09-20 15:27:01 INFO     Epoch 149
+2022-09-20 15:27:01 INFO     Number of samples in train dataset 156907
+2022-09-20 15:33:10 INFO     Critic training done in epoch 149
+2022-09-20 15:35:13 INFO     Encoder decoder training done in epoch 149
+2022-09-20 15:35:13 INFO     critic x loss -427840.205 critic z loss -1941.513 encoder loss 822997.062 decoder loss 2115.071
+
+2022-09-20 15:35:13 INFO     Epoch 150
+2022-09-20 15:35:13 INFO     Number of samples in train dataset 156907
+2022-09-20 15:41:22 INFO     Critic training done in epoch 150
+2022-09-20 15:43:25 INFO     Encoder decoder training done in epoch 150
+2022-09-20 15:43:25 INFO     critic x loss -430906.639 critic z loss -1950.939 encoder loss 829776.312 decoder loss 2126.891
+
+2022-09-20 15:43:25 INFO     Epoch 151
+2022-09-20 15:43:25 INFO     Number of samples in train dataset 156907
+2022-09-20 15:49:34 INFO     Critic training done in epoch 151
+2022-09-20 15:51:37 INFO     Encoder decoder training done in epoch 151
+2022-09-20 15:51:37 INFO     critic x loss -428793.231 critic z loss -1964.283 encoder loss 834432.188 decoder loss 2140.927
+
+2022-09-20 15:51:37 INFO     Epoch 152
+2022-09-20 15:51:37 INFO     Number of samples in train dataset 156907
+2022-09-20 15:57:47 INFO     Critic training done in epoch 152
+2022-09-20 15:59:49 INFO     Encoder decoder training done in epoch 152
+2022-09-20 15:59:49 INFO     critic x loss -428151.831 critic z loss -1976.623 encoder loss 837110.938 decoder loss 2153.276
+
+2022-09-20 15:59:49 INFO     Epoch 153
+2022-09-20 15:59:49 INFO     Number of samples in train dataset 156907
+2022-09-20 16:05:59 INFO     Critic training done in epoch 153
+2022-09-20 16:08:01 INFO     Encoder decoder training done in epoch 153
+2022-09-20 16:08:01 INFO     critic x loss -430648.313 critic z loss -1985.712 encoder loss 844181.688 decoder loss 2164.992
+
+2022-09-20 16:08:01 INFO     Epoch 154
+2022-09-20 16:08:01 INFO     Number of samples in train dataset 156907
+2022-09-20 16:14:11 INFO     Critic training done in epoch 154
+2022-09-20 16:16:13 INFO     Encoder decoder training done in epoch 154
+2022-09-20 16:16:13 INFO     critic x loss -428149.551 critic z loss -1997.097 encoder loss 847687.562 decoder loss 2177.649
+
+2022-09-20 16:16:13 INFO     Epoch 155
+2022-09-20 16:16:13 INFO     Number of samples in train dataset 156907
+2022-09-20 16:22:23 INFO     Critic training done in epoch 155
+2022-09-20 16:24:26 INFO     Encoder decoder training done in epoch 155
+2022-09-20 16:24:26 INFO     critic x loss -430665.301 critic z loss -2006.913 encoder loss 854260.125 decoder loss 2188.561
+
+2022-09-20 16:24:26 INFO     Epoch 156
+2022-09-20 16:24:26 INFO     Number of samples in train dataset 156907
+2022-09-20 16:30:35 INFO     Critic training done in epoch 156
+2022-09-20 16:32:37 INFO     Encoder decoder training done in epoch 156
+2022-09-20 16:32:37 INFO     critic x loss -431412.464 critic z loss -2019.594 encoder loss 858806.188 decoder loss 2201.715
+
+2022-09-20 16:32:37 INFO     Epoch 157
+2022-09-20 16:32:37 INFO     Number of samples in train dataset 156907
+2022-09-20 16:38:47 INFO     Critic training done in epoch 157
+2022-09-20 16:40:50 INFO     Encoder decoder training done in epoch 157
+2022-09-20 16:40:50 INFO     critic x loss -428332.022 critic z loss -2030.405 encoder loss 861995.375 decoder loss 2214.944
+
+2022-09-20 16:40:50 INFO     Epoch 158
+2022-09-20 16:40:50 INFO     Number of samples in train dataset 156907
+2022-09-20 16:47:00 INFO     Critic training done in epoch 158
+2022-09-20 16:49:03 INFO     Encoder decoder training done in epoch 158
+2022-09-20 16:49:03 INFO     critic x loss -428688.605 critic z loss -2041.931 encoder loss 865920.875 decoder loss 2227.494
+
+2022-09-20 16:49:03 INFO     Epoch 159
+2022-09-20 16:49:03 INFO     Number of samples in train dataset 156907
+2022-09-20 16:55:13 INFO     Critic training done in epoch 159
+2022-09-20 16:57:16 INFO     Encoder decoder training done in epoch 159
+2022-09-20 16:57:16 INFO     critic x loss -429812.920 critic z loss -2052.006 encoder loss 873422.438 decoder loss 2237.635
+
+2022-09-20 16:57:16 INFO     Epoch 160
+2022-09-20 16:57:16 INFO     Number of samples in train dataset 156907
+2022-09-20 17:03:26 INFO     Critic training done in epoch 160
+2022-09-20 17:05:28 INFO     Encoder decoder training done in epoch 160
+2022-09-20 17:05:28 INFO     critic x loss -429820.054 critic z loss -2063.713 encoder loss 878411.938 decoder loss 2251.648
+
+2022-09-20 17:05:28 INFO     Epoch 161
+2022-09-20 17:05:28 INFO     Number of samples in train dataset 156907
+2022-09-20 17:11:38 INFO     Critic training done in epoch 161
+2022-09-20 17:13:40 INFO     Encoder decoder training done in epoch 161
+2022-09-20 17:13:40 INFO     critic x loss -428865.929 critic z loss -2075.532 encoder loss 881528.250 decoder loss 2263.360
+
+2022-09-20 17:13:40 INFO     Epoch 162
+2022-09-20 17:13:41 INFO     Number of samples in train dataset 156907
+2022-09-20 17:19:50 INFO     Critic training done in epoch 162
+2022-09-20 17:21:53 INFO     Encoder decoder training done in epoch 162
+2022-09-20 17:21:53 INFO     critic x loss -428245.638 critic z loss -2085.762 encoder loss 886412.938 decoder loss 2274.323
+
+2022-09-20 17:21:53 INFO     Epoch 163
+2022-09-20 17:21:53 INFO     Number of samples in train dataset 156907
+2022-09-20 17:28:03 INFO     Critic training done in epoch 163
+2022-09-20 17:30:05 INFO     Encoder decoder training done in epoch 163
+2022-09-20 17:30:05 INFO     critic x loss -428276.316 critic z loss -2098.119 encoder loss 890897.062 decoder loss 2288.736
+
+2022-09-20 17:30:05 INFO     Epoch 164
+2022-09-20 17:30:05 INFO     Number of samples in train dataset 156907
+2022-09-20 17:36:16 INFO     Critic training done in epoch 164
+2022-09-20 17:38:18 INFO     Encoder decoder training done in epoch 164
+2022-09-20 17:38:18 INFO     critic x loss -428561.033 critic z loss -2108.695 encoder loss 896577.875 decoder loss 2300.719
+
+2022-09-20 17:38:18 INFO     Epoch 165
+2022-09-20 17:38:19 INFO     Number of samples in train dataset 156907
+2022-09-20 17:44:29 INFO     Critic training done in epoch 165
+2022-09-20 17:46:31 INFO     Encoder decoder training done in epoch 165
+2022-09-20 17:46:31 INFO     critic x loss -426726.796 critic z loss -2120.610 encoder loss 900343.625 decoder loss 2313.604
+
+2022-09-20 17:46:31 INFO     Epoch 166
+2022-09-20 17:46:31 INFO     Number of samples in train dataset 156907
+2022-09-20 17:52:41 INFO     Critic training done in epoch 166
+2022-09-20 17:54:43 INFO     Encoder decoder training done in epoch 166
+2022-09-20 17:54:43 INFO     critic x loss -425695.807 critic z loss -2131.028 encoder loss 904011.562 decoder loss 2325.851
+
+2022-09-20 17:54:43 INFO     Epoch 167
+2022-09-20 17:54:43 INFO     Number of samples in train dataset 156907
+2022-09-20 18:00:53 INFO     Critic training done in epoch 167
+2022-09-20 18:02:56 INFO     Encoder decoder training done in epoch 167
+2022-09-20 18:02:56 INFO     critic x loss -423269.610 critic z loss -2142.371 encoder loss 907210.125 decoder loss 2337.679
+
+2022-09-20 18:02:56 INFO     Epoch 168
+2022-09-20 18:02:56 INFO     Number of samples in train dataset 156907
+2022-09-20 18:09:06 INFO     Critic training done in epoch 168
+2022-09-20 18:11:09 INFO     Encoder decoder training done in epoch 168
+2022-09-20 18:11:09 INFO     critic x loss -424133.318 critic z loss -2153.139 encoder loss 913119.875 decoder loss 2348.347
+
+2022-09-20 18:11:09 INFO     Epoch 169
+2022-09-20 18:11:09 INFO     Number of samples in train dataset 156907
+2022-09-20 18:17:18 INFO     Critic training done in epoch 169
+2022-09-20 18:19:21 INFO     Encoder decoder training done in epoch 169
+2022-09-20 18:19:21 INFO     critic x loss -424350.153 critic z loss -2165.438 encoder loss 917830.688 decoder loss 2361.451
+
+2022-09-20 18:19:21 INFO     Epoch 170
+2022-09-20 18:19:21 INFO     Number of samples in train dataset 156907
+2022-09-20 18:25:31 INFO     Critic training done in epoch 170
+2022-09-20 18:27:33 INFO     Encoder decoder training done in epoch 170
+2022-09-20 18:27:33 INFO     critic x loss -423803.473 critic z loss -2175.997 encoder loss 923535.312 decoder loss 2373.846
+
+2022-09-20 18:27:33 INFO     Epoch 171
+2022-09-20 18:27:33 INFO     Number of samples in train dataset 156907
+2022-09-20 18:33:43 INFO     Critic training done in epoch 171
+2022-09-20 18:35:45 INFO     Encoder decoder training done in epoch 171
+2022-09-20 18:35:45 INFO     critic x loss -421509.988 critic z loss -2186.513 encoder loss 925535.688 decoder loss 2385.947
+
+2022-09-20 18:35:45 INFO     Epoch 172
+2022-09-20 18:35:45 INFO     Number of samples in train dataset 156907
+2022-09-20 18:41:55 INFO     Critic training done in epoch 172
+2022-09-20 18:43:58 INFO     Encoder decoder training done in epoch 172
+2022-09-20 18:43:58 INFO     critic x loss -422817.924 critic z loss -2198.269 encoder loss 933101.562 decoder loss 2398.737
+
+2022-09-20 18:43:58 INFO     Epoch 173
+2022-09-20 18:43:58 INFO     Number of samples in train dataset 156907
+2022-09-20 18:50:08 INFO     Critic training done in epoch 173
+2022-09-20 18:52:10 INFO     Encoder decoder training done in epoch 173
+2022-09-20 18:52:10 INFO     critic x loss -422134.605 critic z loss -2210.745 encoder loss 936061.312 decoder loss 2410.915
+
+2022-09-20 18:52:10 INFO     Epoch 174
+2022-09-20 18:52:10 INFO     Number of samples in train dataset 156907
+2022-09-20 18:58:20 INFO     Critic training done in epoch 174
+2022-09-20 19:00:22 INFO     Encoder decoder training done in epoch 174
+2022-09-20 19:00:22 INFO     critic x loss -421244.472 critic z loss -2220.676 encoder loss 940713.812 decoder loss 2421.697
+
+2022-09-20 19:00:22 INFO     Epoch 175
+2022-09-20 19:00:22 INFO     Number of samples in train dataset 156907
+2022-09-20 19:06:32 INFO     Critic training done in epoch 175
+2022-09-20 19:08:35 INFO     Encoder decoder training done in epoch 175
+2022-09-20 19:08:35 INFO     critic x loss -421713.040 critic z loss -2231.605 encoder loss 948394.750 decoder loss 2435.025
+
+2022-09-20 19:08:35 INFO     Epoch 176
+2022-09-20 19:08:35 INFO     Number of samples in train dataset 156907
+2022-09-20 19:14:44 INFO     Critic training done in epoch 176
+2022-09-20 19:16:47 INFO     Encoder decoder training done in epoch 176
+2022-09-20 19:16:47 INFO     critic x loss -419678.924 critic z loss -2243.109 encoder loss 950867.375 decoder loss 2447.703
+
+2022-09-20 19:16:47 INFO     Epoch 177
+2022-09-20 19:16:47 INFO     Number of samples in train dataset 156907
+2022-09-20 19:22:57 INFO     Critic training done in epoch 177
+2022-09-20 19:24:59 INFO     Encoder decoder training done in epoch 177
+2022-09-20 19:24:59 INFO     critic x loss -419302.821 critic z loss -2254.453 encoder loss 956440.812 decoder loss 2458.887
+
+2022-09-20 19:24:59 INFO     Epoch 178
+2022-09-20 19:24:59 INFO     Number of samples in train dataset 156907
+2022-09-20 19:31:09 INFO     Critic training done in epoch 178
+2022-09-20 19:33:12 INFO     Encoder decoder training done in epoch 178
+2022-09-20 19:33:12 INFO     critic x loss -418377.144 critic z loss -2264.792 encoder loss 960398.062 decoder loss 2470.338
+
+2022-09-20 19:33:12 INFO     Epoch 179
+2022-09-20 19:33:12 INFO     Number of samples in train dataset 156907
+2022-09-20 19:39:22 INFO     Critic training done in epoch 179
+2022-09-20 19:41:25 INFO     Encoder decoder training done in epoch 179
+2022-09-20 19:41:25 INFO     critic x loss -418016.487 critic z loss -2274.617 encoder loss 964289.688 decoder loss 2483.676
+
+2022-09-20 19:41:25 INFO     Epoch 180
+2022-09-20 19:41:25 INFO     Number of samples in train dataset 156907
+2022-09-20 19:47:35 INFO     Critic training done in epoch 180
+2022-09-20 19:49:38 INFO     Encoder decoder training done in epoch 180
+2022-09-20 19:49:38 INFO     critic x loss -417702.451 critic z loss -2288.537 encoder loss 970068.312 decoder loss 2495.040
+
+2022-09-20 19:49:38 INFO     Epoch 181
+2022-09-20 19:49:38 INFO     Number of samples in train dataset 156907
+2022-09-20 19:55:48 INFO     Critic training done in epoch 181
+2022-09-20 19:57:50 INFO     Encoder decoder training done in epoch 181
+2022-09-20 19:57:50 INFO     critic x loss -417152.146 critic z loss -2296.972 encoder loss 974693.250 decoder loss 2506.859
+
+2022-09-20 19:57:50 INFO     Epoch 182
+2022-09-20 19:57:50 INFO     Number of samples in train dataset 156907
+2022-09-20 20:04:00 INFO     Critic training done in epoch 182
+2022-09-20 20:06:03 INFO     Encoder decoder training done in epoch 182
+2022-09-20 20:06:03 INFO     critic x loss -414802.579 critic z loss -2309.330 encoder loss 979972.625 decoder loss 2518.994
+
+2022-09-20 20:06:03 INFO     Epoch 183
+2022-09-20 20:06:03 INFO     Number of samples in train dataset 156907
+2022-09-20 20:12:13 INFO     Critic training done in epoch 183
+2022-09-20 20:14:16 INFO     Encoder decoder training done in epoch 183
+2022-09-20 20:14:16 INFO     critic x loss -417694.069 critic z loss -2320.252 encoder loss 987906.562 decoder loss 2531.740
+
+2022-09-20 20:14:16 INFO     Epoch 184
+2022-09-20 20:14:16 INFO     Number of samples in train dataset 156907
+2022-09-20 20:20:26 INFO     Critic training done in epoch 184
+2022-09-20 20:22:29 INFO     Encoder decoder training done in epoch 184
+2022-09-20 20:22:29 INFO     critic x loss -416106.550 critic z loss -2331.786 encoder loss 990705.312 decoder loss 2544.515
+
+2022-09-20 20:22:29 INFO     Epoch 185
+2022-09-20 20:22:29 INFO     Number of samples in train dataset 156907
+2022-09-20 20:28:39 INFO     Critic training done in epoch 185
+2022-09-20 20:30:42 INFO     Encoder decoder training done in epoch 185
+2022-09-20 20:30:42 INFO     critic x loss -418487.306 critic z loss -2343.960 encoder loss 998115.500 decoder loss 2556.807
+
+2022-09-20 20:30:42 INFO     Epoch 186
+2022-09-20 20:30:43 INFO     Number of samples in train dataset 156907
+2022-09-20 20:36:52 INFO     Critic training done in epoch 186
+2022-09-20 20:38:55 INFO     Encoder decoder training done in epoch 186
+2022-09-20 20:38:55 INFO     critic x loss -413169.602 critic z loss -2355.535 encoder loss 1000842.500 decoder loss 2570.169
+
+2022-09-20 20:38:55 INFO     Epoch 187
+2022-09-20 20:38:55 INFO     Number of samples in train dataset 156907
+2022-09-20 20:45:04 INFO     Critic training done in epoch 187
+2022-09-20 20:47:08 INFO     Encoder decoder training done in epoch 187
+2022-09-20 20:47:08 INFO     critic x loss -416387.105 critic z loss -2367.357 encoder loss 1009351.250 decoder loss 2581.754
+
+2022-09-20 20:47:08 INFO     Epoch 188
+2022-09-20 20:47:08 INFO     Number of samples in train dataset 156907
+2022-09-20 20:53:17 INFO     Critic training done in epoch 188
+2022-09-20 20:55:21 INFO     Encoder decoder training done in epoch 188
+2022-09-20 20:55:21 INFO     critic x loss -412810.143 critic z loss -2379.470 encoder loss 1011670.625 decoder loss 2596.186
+
+2022-09-20 20:55:21 INFO     Epoch 189
+2022-09-20 20:55:21 INFO     Number of samples in train dataset 156907
+2022-09-20 21:01:29 INFO     Critic training done in epoch 189
+2022-09-20 21:03:33 INFO     Encoder decoder training done in epoch 189
+2022-09-20 21:03:33 INFO     critic x loss -414644.722 critic z loss -2391.323 encoder loss 1016302.000 decoder loss 2607.373
+
+2022-09-20 21:03:33 INFO     Epoch 190
+2022-09-20 21:03:33 INFO     Number of samples in train dataset 156907
+2022-09-20 21:09:42 INFO     Critic training done in epoch 190
+2022-09-20 21:11:46 INFO     Encoder decoder training done in epoch 190
+2022-09-20 21:11:46 INFO     critic x loss -413325.977 critic z loss -2402.303 encoder loss 1022060.688 decoder loss 2619.471
+
+2022-09-20 21:11:46 INFO     Epoch 191
+2022-09-20 21:11:46 INFO     Number of samples in train dataset 156907
+2022-09-20 21:17:56 INFO     Critic training done in epoch 191
+2022-09-20 21:19:59 INFO     Encoder decoder training done in epoch 191
+2022-09-20 21:19:59 INFO     critic x loss -414646.113 critic z loss -2413.375 encoder loss 1029996.125 decoder loss 2632.602
+
+2022-09-20 21:19:59 INFO     Epoch 192
+2022-09-20 21:20:00 INFO     Number of samples in train dataset 156907
+2022-09-20 21:26:09 INFO     Critic training done in epoch 192
+2022-09-20 21:28:13 INFO     Encoder decoder training done in epoch 192
+2022-09-20 21:28:13 INFO     critic x loss -411175.966 critic z loss -2424.905 encoder loss 1030553.750 decoder loss 2645.348
+
+2022-09-20 21:28:13 INFO     Epoch 193
+2022-09-20 21:28:13 INFO     Number of samples in train dataset 156907
+2022-09-20 21:34:22 INFO     Critic training done in epoch 193
+2022-09-20 21:36:25 INFO     Encoder decoder training done in epoch 193
+2022-09-20 21:36:25 INFO     critic x loss -413063.841 critic z loss -2437.621 encoder loss 1038316.000 decoder loss 2657.084
+
+2022-09-20 21:36:25 INFO     Epoch 194
+2022-09-20 21:36:25 INFO     Number of samples in train dataset 156907
+2022-09-20 21:42:34 INFO     Critic training done in epoch 194
+2022-09-20 21:44:38 INFO     Encoder decoder training done in epoch 194
+2022-09-20 21:44:38 INFO     critic x loss -413039.439 critic z loss -2447.990 encoder loss 1044027.625 decoder loss 2668.778
+
+2022-09-20 21:44:38 INFO     Epoch 195
+2022-09-20 21:44:38 INFO     Number of samples in train dataset 156907
+2022-09-20 21:50:48 INFO     Critic training done in epoch 195
+2022-09-20 21:52:52 INFO     Encoder decoder training done in epoch 195
+2022-09-20 21:52:52 INFO     critic x loss -413245.759 critic z loss -2459.248 encoder loss 1051844.375 decoder loss 2681.784
+
+2022-09-20 21:52:52 INFO     Epoch 196
+2022-09-20 21:52:52 INFO     Number of samples in train dataset 156907
+2022-09-20 21:59:01 INFO     Critic training done in epoch 196
+2022-09-20 22:01:05 INFO     Encoder decoder training done in epoch 196
+2022-09-20 22:01:05 INFO     critic x loss -414446.259 critic z loss -2471.590 encoder loss 1055755.875 decoder loss 2693.962
+
+2022-09-20 22:01:05 INFO     Epoch 197
+2022-09-20 22:01:05 INFO     Number of samples in train dataset 156907
+2022-09-20 22:07:15 INFO     Critic training done in epoch 197
+2022-09-20 22:09:19 INFO     Encoder decoder training done in epoch 197
+2022-09-20 22:09:19 INFO     critic x loss -413210.724 critic z loss -2482.364 encoder loss 1061595.375 decoder loss 2705.821
+
+2022-09-20 22:09:19 INFO     Epoch 198
+2022-09-20 22:09:19 INFO     Number of samples in train dataset 156907
+2022-09-20 22:15:28 INFO     Critic training done in epoch 198
+2022-09-20 22:17:31 INFO     Encoder decoder training done in epoch 198
+2022-09-20 22:17:31 INFO     critic x loss -413937.256 critic z loss -2493.816 encoder loss 1070349.625 decoder loss 2718.630
+
+2022-09-20 22:17:31 INFO     Epoch 199
+2022-09-20 22:17:31 INFO     Number of samples in train dataset 156907
+2022-09-20 22:23:37 INFO     Critic training done in epoch 199
+2022-09-20 22:25:40 INFO     Encoder decoder training done in epoch 199
+2022-09-20 22:25:40 INFO     critic x loss -415665.527 critic z loss -2505.896 encoder loss 1077539.250 decoder loss 2732.281
+
