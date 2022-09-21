@@ -39,3 +39,20 @@ def test_load_model():
     # print(state_dict)
     encoder.load_state_dict(state_dict)
     print(encoder.state_dict())
+
+
+def test_np_dim_sum():
+    x = np.random.rand(10000, 123)
+    x_ = np.random.rand(10000, 123)
+
+    result = np.absolute(x - x_)
+    print(result.shape)
+
+    result_sum = np.sum(result, axis=1)
+    print(result_sum.shape)
+    result_mean = np.mean(result, axis=1)
+    print(result_mean.shape)
+
+def test_threshold():
+    for threshold in np.arange(0, 1, 0.001):
+        print(threshold)

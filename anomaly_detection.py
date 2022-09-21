@@ -1,8 +1,7 @@
 import numpy as np
-from scipy import stats
-
 import torch
-
+from scipy import stats
+from numpy import linalg as LA
 
 def test(test_loader, encoder, decoder, critic_x, device, batch_size):
     reconstruction_error = list()
@@ -51,7 +50,9 @@ def dtw_reconstruction_error(x, x_):
 
 
 def pw_reconstruction_error(x, x_):
-    return np.absolute(x - x_)
+    # FIXME sum or mean
+    return LA.norm(x - x_, 1)
+
 
 
 def unroll_signal(x):
@@ -126,8 +127,15 @@ def detect_anomaly(anomaly_score):
     return is_anomaly
 
 
-# TODO implements
-# def detect_anomaly_with_threshold(anomaly_score, threshold):
+def detect_anomaly_with_threshold(anomaly_score, threshold):
+    is_anomaly = np.zeros(len(anomaly_score))
+
+    for i in range(0, len(anomaly_score)):
+        # FIXME
+        if anomaly_score[i] > threshold:
+            is_anomaly[i] = 1
+
+    return is_anomaly
 
 
 def find_scores(y_true, y_predict):

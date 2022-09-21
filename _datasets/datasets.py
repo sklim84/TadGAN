@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 
 
 class WADIDataset(Dataset):
-    def __init__(self, data, label=None, sampling_ratio=None):
+    def __init__(self, data, label=None, sampling_ratio=None, seq_len=None):
         self.data = data
         if label is not None:
             self.label = label
@@ -12,13 +12,25 @@ class WADIDataset(Dataset):
             self.label = np.zeros(shape=(len(self.data),), dtype=np.int8)
 
         if sampling_ratio is not None:
-            self.data, self.label = self._sampling(self.data, self.label, sampling_ratio)
+            self.data, self.label = self._sampling(self.data, self.label, sampling_ratio, seq_len)
 
-    def _sampling(self, data, label, sampling_ratio):
+    def _sampling(self, data, label, sampling_ratio, seq_len):
+
+        data = self.convert_to_windows(data, seq_len)
+        label = self.convert_to_windows(label, seq_len)
+
         length = len(data)
         idx_sample = np.random.permutation(length)[:int(np.floor(sampling_ratio * length))]
         idx_sample = np.sort(idx_sample)
         return data[idx_sample], label[idx_sample]
+
+    def convert_to_windows(self, data, seq_len, stride=1):
+        new_data = []
+        for i in range(0, len(data) - seq_len, stride):
+            _x = data[i:i + seq_len]
+            new_data.append(_x)
+
+        return np.array(new_data)
 
     def __len__(self):
         return len(self.data)
