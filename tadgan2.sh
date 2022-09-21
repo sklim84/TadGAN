@@ -11,7 +11,7 @@ do
       do
         for n_critics in 5
         do
-          for lr in 1e-5 1e-6 1e-7
+          for lr in 1e-5 # 1e-5 1e-6 1e-7
           do
             for latent_space_dim in 40 # 20 30 40
             do

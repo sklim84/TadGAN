@@ -12,16 +12,17 @@ import torch.optim as optim
 from scipy import stats
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from torch.autograd import Variable
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, random_split
 from tqdm import tqdm
 
 import model
 from _datasets.datasets import WADIDataset
+
 from anomaly_detection import pw_reconstruction_error, detect_anomaly_with_threshold
 from config import get_config
 
 logging.basicConfig(
-    filename=f'./logs/main_{datetime.now().strftime("%Y%m%d_%H:%M:%S")}.log',
+    filename=f'./logs/main_{datetime.now().strftime("%Y%m%d")}.log',
     format='%(asctime)s %(levelname)-8s %(message)s',
     level=logging.DEBUG,
     datefmt='%Y-%m-%d %H:%M:%S')
@@ -222,7 +223,7 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
     return cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean
 
 
-def eval_model(encoder, decoder, critic_x, dataloader, batch_size, device):
+def eval_model(encoder, decoder, critic_x, dataloader, seq_len, device):
     logging.info('Number of samples in test dataset {}'.format(len(dataloader.dataset)))
 
     reconstruction_error_list = list()
@@ -236,7 +237,7 @@ def eval_model(encoder, decoder, critic_x, dataloader, batch_size, device):
         reconstructed_signal = decoder(encoder(signal))
         reconstructed_signal = torch.squeeze(reconstructed_signal)
 
-        for i in range(0, batch_size):
+        for i in range(0, seq_len):
             x_ = reconstructed_signal[i].detach().cpu().numpy()
             x = signal[i].cpu().numpy()
             y_true.append(int(anomaly[i].detach()))
@@ -327,9 +328,13 @@ if __name__ == "__main__":
 
         # create model
         encoder = model.Encoder(signal_shape, args.latent_space_dim).to(device)
+        encoder = torch.nn.DataParallel(encoder, device_ids=[0, 1, 2, 3])
         decoder = model.Decoder(signal_shape, args.latent_space_dim).to(device)
+        decoder = torch.nn.DataParallel(decoder, device_ids=[0, 1, 2, 3])
         critic_x = model.CriticX(signal_shape).to(device)
+        critic_x = torch.nn.DataParallel(critic_x, device_ids=[0, 1, 2, 3])
         critic_z = model.CriticZ(args.latent_space_dim).to(device)
+        critic_z = torch.nn.DataParallel(critic_z, device_ids=[0, 1, 2, 3])
 
         optim_enc = optim.Adam(encoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
         optim_dec = optim.Adam(decoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
@@ -343,7 +348,8 @@ if __name__ == "__main__":
 
             cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean \
                 = train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz,
-                              train_data, args.batch, args.seq_len, args.n_critics, args.latent_space_dim, device, 0.2)
+                              train_data, args.batch, args.seq_len, args.n_critics, args.latent_space_dim, device,
+                              args.sampling_ratio)
 
             cx_epoch_loss.append(cx_loss_mean)
             cz_epoch_loss.append(cz_loss_mean)
@@ -355,10 +361,11 @@ if __name__ == "__main__":
 
             # save model
             if epoch % 10 == 0:
-                torch.save(encoder.state_dict(), encoder_path)
-                torch.save(decoder.state_dict(), decoder_path)
-                torch.save(critic_x.state_dict(), critic_x_path)
-                torch.save(critic_z.state_dict(), critic_z_path)
+                # Saving torch.nn.DataParallel Models
+                torch.save(encoder.module.state_dict(), encoder_path)
+                torch.save(decoder.module.state_dict(), decoder_path)
+                torch.save(critic_x.module.state_dict(), critic_x_path)
+                torch.save(critic_z.module.state_dict(), critic_z_path)
                 torch.save(optim_enc.state_dict(), encoder_opt_path)
                 torch.save(optim_dec.state_dict(), decoder_opt_path)
                 torch.save(optim_cx.state_dict(), critic_x_opt_path)
@@ -374,19 +381,16 @@ if __name__ == "__main__":
         signal_shape = test_data.shape[1]
 
         test_dataset = WADIDataset(data=test_data, label=test_label)
-        test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
+        test_loader = DataLoader(test_dataset, batch_size=args.seq_len, num_workers=8, drop_last=True)
 
         # load model
-        device = 'cpu'
+        # device = 'cpu'
         encoder = model.Encoder(signal_shape, args.latent_space_dim).to(device)
-        encoder_state = torch.load(encoder_path)
-        # print(encoder_state)
-        encoder.load_state_dict(encoder_state)
-
+        encoder.load_state_dict(torch.load(encoder_path))
         decoder = model.Decoder(signal_shape, args.latent_space_dim).to(device)
         decoder.load_state_dict(torch.load(decoder_path))
         critic_x = model.CriticX(signal_shape).to(device)
         critic_x.load_state_dict(torch.load(critic_x_path))
 
-        df_result = eval_model(encoder, decoder, critic_x, test_loader, args.batch, device)
+        df_result = eval_model(encoder, decoder, critic_x, test_loader, args.seq_len, device)
         df_result.to_csv(test_result_path)
