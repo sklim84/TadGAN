@@ -320,7 +320,7 @@ if __name__ == "__main__":
 
     # Train
     if args.mode == 'all' or args.mode == 'train':
-        logging.info('Start training {}'.format(args.datasets))
+        logging.info('Start training')
 
         # load data
         train_data = np.load(train_data_path)
@@ -373,7 +373,7 @@ if __name__ == "__main__":
 
     # Train
     elif args.mode == 'all' or args.mode == 'test':
-        logging.info('Start testing {}'.format(args.datasets))
+        logging.info('Start testing')
 
         # load data
         test_data = np.load(test_data_path)
