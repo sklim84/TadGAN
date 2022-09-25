@@ -16,16 +16,20 @@ from torch.utils.data import DataLoader, random_split
 from tqdm import tqdm
 
 import model
-from _datasets.datasets import WADIDataset
+from _datasets.datasets import TadGANDataset
 
 from anomaly_detection import pw_reconstruction_error, detect_anomaly_with_threshold
 from config import get_config
+import nvidia_smi
 
 logging.basicConfig(
     filename=f'./logs/main_{datetime.now().strftime("%Y%m%d")}.log',
     format='%(asctime)s %(levelname)-8s %(message)s',
     level=logging.DEBUG,
     datefmt='%Y-%m-%d %H:%M:%S')
+
+nvidia_smi.nvmlInit()
+deviceCount = nvidia_smi.nvmlDeviceGetCount()
 
 
 def convert_to_windows(data, seq_len, stride=1):
@@ -37,11 +41,8 @@ def convert_to_windows(data, seq_len, stride=1):
     return np.array(new_data)
 
 
-def critic_x_iteration(sample, device, seq_len, latent_space_dim, critic_x, decoder, optimizer):
+def critic_x_iteration(x, device, seq_len, latent_space_dim, critic_x, decoder, optimizer):
     optimizer.zero_grad()
-
-    x = sample['signal']
-    x = x.to(device)
 
     valid_x = critic_x(x)
     valid_x = torch.squeeze(valid_x)
@@ -81,11 +82,9 @@ def critic_x_iteration(sample, device, seq_len, latent_space_dim, critic_x, deco
     return loss
 
 
-def critic_z_iteration(sample, device, seq_len, latent_space_dim, critic_z, encoder, optimizer):
+def critic_z_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, optimizer):
     optimizer.zero_grad()
 
-    x = sample['signal']
-    x = x.to(device)
     z = encoder(x)
     valid_z = critic_z(z)
     valid_z = torch.squeeze(valid_z)
@@ -120,11 +119,9 @@ def critic_z_iteration(sample, device, seq_len, latent_space_dim, critic_z, enco
     return loss
 
 
-def encoder_iteration(sample, device, seq_len, latent_space_dim, critic_x, encoder, decoder, optimizer):
+def encoder_iteration(x, device, seq_len, latent_space_dim, critic_x, encoder, decoder, optimizer):
     optimizer.zero_grad()
 
-    x = sample['signal']
-    x = x.to(device)
     valid_x = critic_x(x)
     valid_x = torch.squeeze(valid_x)
     valid_ones = torch.ones(valid_x.shape)
@@ -146,17 +143,16 @@ def encoder_iteration(sample, device, seq_len, latent_space_dim, critic_x, encod
     loss_function = torch.nn.MSELoss()
     mse = loss_function(x.float(), gen_x.float())
     loss_enc = mse + critic_score_valid_x - critic_score_fake_x
-    loss_enc.backward(retain_graph=True)
+    # loss_enc.backward(retain_graph=True)
+    loss_enc.backward()
     optimizer.step()
 
     return loss_enc
 
 
-def decoder_iteration(sample, device, seq_len, latent_space_dim, critic_z, encoder, decoder, optimizer):
+def decoder_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, decoder, optimizer):
     optimizer.zero_grad()
 
-    x = sample['signal']
-    x = x.to(device)
     z = encoder(x)
     valid_z = critic_z(z)
     valid_z = torch.squeeze(valid_z)
@@ -178,7 +174,8 @@ def decoder_iteration(sample, device, seq_len, latent_space_dim, critic_z, encod
     loss_function = torch.nn.MSELoss()
     mse = loss_function(x.float(), gen_x.float())
     loss_dec = mse + critic_score_valid_z - critic_score_fake_z
-    loss_dec.backward(retain_graph=True)
+    # loss_dec.backward(retain_graph=True)
+    loss_dec.backward()
     optimizer.step()
 
     return loss_dec
@@ -189,31 +186,46 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
     cx_nc_loss, cz_nc_loss = list(), list()
 
     # training data random sampling
-    train_dataset = WADIDataset(data=data, sampling_ratio=sampling_ratio, seq_len=seq_len)
+    train_dataset = TadGANDataset(data=data, sampling_ratio=sampling_ratio, seq_len=seq_len)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, drop_last=True)
     logging.info('Number of samples in train dataset {}'.format(len(train_dataset)))
 
+    logging.info('Critic training start')
     for i in range(1, n_critics + 1):
         cx_loss_list, cz_loss_list = list(), list()
 
         for batch, sample in enumerate(train_loader):
-            cx_loss = critic_x_iteration(sample, device, seq_len, latent_space_dim, critic_x, decoder, optim_cx)
-            cz_loss = critic_z_iteration(sample, device, seq_len, latent_space_dim, critic_z, encoder, optim_cz)
+            x = sample['signal']
+            x = torch.Tensor(x).to(device)
+
+            cx_loss = critic_x_iteration(x, device, seq_len, latent_space_dim, critic_x, decoder, optim_cx)
+            cz_loss = critic_z_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, optim_cz)
             cx_loss_list.append(cx_loss)
             cz_loss_list.append(cz_loss)
 
         cx_nc_loss.append(torch.mean(torch.tensor(cx_loss_list)))
         cz_nc_loss.append(torch.mean(torch.tensor(cz_loss_list)))
+        logging.info('#{} Critic training done'.format(i))
 
-    logging.info('Critic training done')
-
+    logging.info('Encoder decoder training start')
     encoder_loss, decoder_loss = list(), list()
-
     for batch, sample in enumerate(train_loader):
-        enc_loss = encoder_iteration(sample, device, seq_len, latent_space_dim, critic_x, encoder, decoder, optim_enc)
-        dec_loss = decoder_iteration(sample, device, seq_len, latent_space_dim, critic_z, encoder, decoder, optim_dec)
+        x = sample['signal']
+        x = torch.Tensor(x).to(device)
+
+        if batch % 100 == 0:
+            handle = nvidia_smi.nvmlDeviceGetHandleByIndex(int(args.device))
+            info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
+            logging.info("batch: {}, Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)"
+                         .format(batch, args.device, nvidia_smi.nvmlDeviceGetName(handle), 100 * info.free / info.total,
+                                 info.total, info.free, info.used))
+
+        enc_loss = encoder_iteration(x, device, seq_len, latent_space_dim, critic_x, encoder, decoder, optim_enc)
+        dec_loss = decoder_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, decoder, optim_dec)
         encoder_loss.append(enc_loss)
         decoder_loss.append(dec_loss)
+
+    logging.info('Encoder decoder training done')
 
     cx_loss_mean = torch.mean(torch.tensor(cx_nc_loss))
     cz_loss_mean = torch.mean(torch.tensor(cz_nc_loss))
@@ -317,6 +329,7 @@ if __name__ == "__main__":
     # GPU setting
     gpu = 'cuda:' + args.device
     device = torch.device(gpu)
+    print(device)
 
     # Train
     if args.mode == 'all' or args.mode == 'train':
@@ -327,14 +340,18 @@ if __name__ == "__main__":
         signal_shape = train_data.shape[1]
 
         # create model
-        encoder = model.Encoder(signal_shape, args.latent_space_dim).to(device)
-        # encoder = torch.nn.DataParallel(encoder, device_ids=[0, 1, 2, 3])
-        decoder = model.Decoder(signal_shape, args.latent_space_dim).to(device)
-        # decoder = torch.nn.DataParallel(decoder, device_ids=[0, 1, 2, 3])
-        critic_x = model.CriticX(signal_shape).to(device)
-        # critic_x = torch.nn.DataParallel(critic_x, device_ids=[0, 1, 2, 3])
-        critic_z = model.CriticZ(args.latent_space_dim).to(device)
-        # critic_z = torch.nn.DataParallel(critic_z, device_ids=[0, 1, 2, 3])
+        encoder = model.Encoder(signal_shape, args.latent_space_dim)
+        # encoder = torch.nn.DataParallel(encoder)
+        encoder = encoder.to(device)
+        decoder = model.Decoder(signal_shape, args.latent_space_dim)
+        # decoder = torch.nn.DataParallel(decoder)
+        decoder = decoder.to(device)
+        critic_x = model.CriticX(signal_shape)
+        # critic_x = torch.nn.DataParallel(critic_x)
+        critic_x = critic_x.to(device)
+        critic_z = model.CriticZ(args.latent_space_dim)
+        # critic_z = torch.nn.DataParallel(critic_z)
+        critic_Z = critic_z.to(device)
 
         optim_enc = optim.Adam(encoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
         optim_dec = optim.Adam(decoder.parameters(), lr=args.lr, betas=(args.beta1, args.beta2))
@@ -355,13 +372,17 @@ if __name__ == "__main__":
             cz_epoch_loss.append(cz_loss_mean)
             encoder_epoch_loss.append(encoder_loss_mean)
             decoder_epoch_loss.append(decoder_loss_mean)
-            logging.info('Encoder decoder training done in epoch {}'.format(epoch))
+            logging.info('Training done in epoch {}'.format(epoch))
             logging.info('critic x loss {:.3f} critic z loss {:.3f} encoder loss {:.3f} decoder loss {:.3f}\n'.format(
                 cx_epoch_loss[-1], cz_epoch_loss[-1], encoder_epoch_loss[-1], decoder_epoch_loss[-1]))
 
             # save model
             if epoch % 10 == 0:
                 # Saving torch.nn.DataParallel Models
+                # torch.save(encoder.module.state_dict(), encoder_path)
+                # torch.save(decoder.module.state_dict(), decoder_path)
+                # torch.save(critic_x.module.state_dict(), critic_x_path)
+                # torch.save(critic_z.module.state_dict(), critic_z_path)
                 torch.save(encoder.state_dict(), encoder_path)
                 torch.save(decoder.state_dict(), decoder_path)
                 torch.save(critic_x.state_dict(), critic_x_path)
@@ -380,11 +401,10 @@ if __name__ == "__main__":
         test_label = np.load(test_label_path)
         signal_shape = test_data.shape[1]
 
-        test_dataset = WADIDataset(data=test_data, label=test_label)
+        test_dataset = TadGANDataset(data=test_data, label=test_label)
         test_loader = DataLoader(test_dataset, batch_size=args.seq_len, num_workers=8, drop_last=True)
 
         # load model
-        # device = 'cpu'
         encoder = model.Encoder(signal_shape, args.latent_space_dim).to(device)
         encoder.load_state_dict(torch.load(encoder_path))
         decoder = model.Decoder(signal_shape, args.latent_space_dim).to(device)

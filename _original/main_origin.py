@@ -15,8 +15,13 @@ from torch.utils.data import Dataset, DataLoader
 
 import model
 import anomaly_detection
+import nvidia_smi
+
 
 logging.basicConfig(filename='train.log', level=logging.DEBUG)
+
+nvidia_smi.nvmlInit()
+deviceCount = nvidia_smi.nvmlDeviceGetCount()
 
 class SignalDataset(Dataset):
     def __init__(self, path):
@@ -190,6 +195,15 @@ def train(n_epochs=2000):
         decoder_loss = list()
 
         for batch, sample in enumerate(train_loader):
+
+            if batch % 100 == 0:
+                handle = nvidia_smi.nvmlDeviceGetHandleByIndex(int(0))
+                info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
+                print("batch: {}, Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)"
+                      .format(batch, 0, nvidia_smi.nvmlDeviceGetName(handle), 100 * info.free / info.total,
+                              info.total, info.free,
+                              info.used))
+
             enc_loss = encoder_iteration(sample)
             dec_loss = decoder_iteration(sample)
             encoder_loss.append(enc_loss)

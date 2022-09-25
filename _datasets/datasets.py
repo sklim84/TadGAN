@@ -1,9 +1,9 @@
 import numpy as np
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import TensorDataset
 
 
-class WADIDataset(Dataset):
+class TadGANDataset(TensorDataset):
     def __init__(self, data, label=None, sampling_ratio=None, seq_len=None):
         self.data = data
         if label is not None:
