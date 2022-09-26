@@ -1,7 +1,7 @@
 mode=train
 seed=0
 device=0
-for datasets in 'wadi'; do # wadi, swat
+for datasets in 'SMAP'; do # WADI, SWaT, SMAP, SMD
   for epoch in 200; do
     for batch in 60; do
       for n_critics in 5; do

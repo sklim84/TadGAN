@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-
+import os
 import model
 def test_metrics():
     print('\n')
@@ -56,3 +56,27 @@ def test_np_dim_sum():
 def test_threshold():
     for threshold in np.arange(0, 1, 0.001):
         print(threshold)
+
+def test_path():
+    path = os.path.abspath('./_datasets')
+    print(path)
+
+def test_numpy_concat():
+    a = np.random.rand(5000, 123)
+    b = np.random.rand(5000, 123)
+
+
+    total = []
+    for i in range(0, 15):
+        total.append(np.random.rand(5000, 123))
+
+    print(np.vstack(total).shape)
+
+def test_numpy_1d_concat():
+    total = []
+    for i in range(0, 5):
+        total.append(np.random.rand(3))
+
+    print('\n')
+    print(total)
+    print(np.hstack(total))

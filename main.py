@@ -21,6 +21,7 @@ from _datasets.datasets import TadGANDataset
 from anomaly_detection import pw_reconstruction_error, detect_anomaly_with_threshold
 from config import get_config
 import nvidia_smi
+from utils import create_dataloaders
 
 logging.basicConfig(
     filename=f'./logs/main_{datetime.now().strftime("%Y%m%d")}.log',
@@ -30,15 +31,6 @@ logging.basicConfig(
 
 nvidia_smi.nvmlInit()
 deviceCount = nvidia_smi.nvmlDeviceGetCount()
-
-
-def convert_to_windows(data, seq_len, stride=1):
-    new_data = []
-    for i in range(0, len(data) - seq_len, stride):
-        _x = data[i:i + seq_len]
-        new_data.append(_x)
-
-    return np.array(new_data)
 
 
 def critic_x_iteration(x, device, batch_size, latent_space_dim, critic_x, decoder, optimizer):
@@ -185,58 +177,55 @@ def decoder_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder
     return loss_dec
 
 
-def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz, data, batch_size,
-                n_critics, latent_space_dim, device, sampling_ratio=0.2):
+def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz, train_loaders,
+                batch_size, n_critics, latent_space_dim, device):
     cx_nc_loss, cz_nc_loss = list(), list()
 
-    # training data random sampling
-    # train_dataset = TadGANDataset(data=data, sampling_ratio=sampling_ratio, seq_len=seq_len)
-    train_dataset = TadGANDataset(data=data, sampling_ratio=sampling_ratio)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, drop_last=True)
-    logging.info('Number of samples in train dataset {}'.format(len(train_dataset)))
+    for t, train_loader in enumerate(train_loaders):
+        logging.info(f'Number of batches in #{t} train loader: {len(train_loader)}')
+        logging.info('Critic training start')
 
-    logging.info('Critic training start')
-    for i in range(1, n_critics + 1):
-        cx_loss_list, cz_loss_list = list(), list()
+        for i in range(1, n_critics + 1):
+            cx_loss_list, cz_loss_list = list(), list()
 
-        logging.info('length of train loader: {}'.format(len(train_loader)))
+            for batch, sample in enumerate(train_loader):
+                x = sample['signal']
+                x = torch.Tensor(x).to(device)
+
+                cx_loss = critic_x_iteration(x, device, batch_size, latent_space_dim, critic_x, decoder, optim_cx)
+                cz_loss = critic_z_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, optim_cz)
+                cx_loss_list.append(cx_loss)
+                cz_loss_list.append(cz_loss)
+
+            cx_nc_loss.append(torch.mean(torch.tensor(cx_loss_list)))
+            cz_nc_loss.append(torch.mean(torch.tensor(cz_loss_list)))
+            logging.info('#{} Critic training done'.format(i))
+
+        logging.info('Encoder decoder training start')
+        encoder_loss, decoder_loss = list(), list()
         for batch, sample in enumerate(train_loader):
             x = sample['signal']
             x = torch.Tensor(x).to(device)
 
-            cx_loss = critic_x_iteration(x, device, batch_size, latent_space_dim, critic_x, decoder, optim_cx)
-            cz_loss = critic_z_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, optim_cz)
-            cx_loss_list.append(cx_loss)
-            cz_loss_list.append(cz_loss)
+            if batch % 1000 == 0:
+                handle = nvidia_smi.nvmlDeviceGetHandleByIndex(int(args.device))
+                info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
+                logging.info("batch: {}, Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)"
+                             .format(batch, args.device, nvidia_smi.nvmlDeviceGetName(handle),
+                                     100 * info.free / info.total,
+                                     info.total, info.free, info.used))
 
-        cx_nc_loss.append(torch.mean(torch.tensor(cx_loss_list)))
-        cz_nc_loss.append(torch.mean(torch.tensor(cz_loss_list)))
-        logging.info('#{} Critic training done'.format(i))
+            enc_loss = encoder_iteration(x, device, batch_size, latent_space_dim, critic_x, encoder, decoder, optim_enc)
+            dec_loss = decoder_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, decoder, optim_dec)
+            encoder_loss.append(enc_loss)
+            decoder_loss.append(dec_loss)
 
-    logging.info('Encoder decoder training start')
-    encoder_loss, decoder_loss = list(), list()
-    for batch, sample in enumerate(train_loader):
-        x = sample['signal']
-        x = torch.Tensor(x).to(device)
+        logging.info('Encoder decoder training done')
 
-        if batch % 100 == 0:
-            handle = nvidia_smi.nvmlDeviceGetHandleByIndex(int(args.device))
-            info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
-            logging.info("batch: {}, Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)"
-                         .format(batch, args.device, nvidia_smi.nvmlDeviceGetName(handle), 100 * info.free / info.total,
-                                 info.total, info.free, info.used))
-
-        enc_loss = encoder_iteration(x, device, batch_size, latent_space_dim, critic_x, encoder, decoder, optim_enc)
-        dec_loss = decoder_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, decoder, optim_dec)
-        encoder_loss.append(enc_loss)
-        decoder_loss.append(dec_loss)
-
-    logging.info('Encoder decoder training done')
-
-    cx_loss_mean = torch.mean(torch.tensor(cx_nc_loss))
-    cz_loss_mean = torch.mean(torch.tensor(cz_nc_loss))
-    encoder_loss_mean = torch.mean(torch.tensor(encoder_loss))
-    decoder_loss_mean = torch.mean(torch.tensor(decoder_loss))
+        cx_loss_mean = torch.mean(torch.tensor(cx_nc_loss))
+        cz_loss_mean = torch.mean(torch.tensor(cz_nc_loss))
+        encoder_loss_mean = torch.mean(torch.tensor(encoder_loss))
+        decoder_loss_mean = torch.mean(torch.tensor(decoder_loss))
 
     return cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean
 
@@ -297,14 +286,8 @@ if __name__ == "__main__":
     dir_datasets, dir_models, dir_results = './_datasets', './models', './results'
 
     # datasets
-    if args.datasets == 'wadi':
-        train_data_path = os.path.join(dir_datasets + '/WADI', 'train.npy')
-        test_data_path = os.path.join(dir_datasets + '/WADI', 'test.npy')
-        test_label_path = os.path.join(dir_datasets + '/WADI', 'labels.npy')
-    elif args.datasets == 'swat':
-        train_data_path = os.path.join(dir_datasets + '/SWaT', 'train.npy')
-        test_data_path = os.path.join(dir_datasets + '/SWaT', 'test.npy')
-        test_label_path = os.path.join(dir_datasets + '/SWaT', 'labels.npy')
+    train_loaders, test_loader, signal_shape = create_dataloaders(datasets=args.datasets, batch_size=args.batch,
+                                                                  sampling_ratio=args.sampling_ratio)
 
     # model
     encoder_path = os.path.join(dir_models, f'encoder_{args.datasets}_{args.lr}_{args.latent_space_dim}.pt')
@@ -337,10 +320,6 @@ if __name__ == "__main__":
     if args.mode == 'all' or args.mode == 'train':
         logging.info('Start training {}'.format(args.datasets))
 
-        # load data
-        train_data = np.load(train_data_path)
-        signal_shape = train_data.shape[1]
-
         # create model
         encoder = model.Encoder(signal_shape, args.latent_space_dim)
         # encoder = torch.nn.DataParallel(encoder)
@@ -367,8 +346,7 @@ if __name__ == "__main__":
 
             cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean \
                 = train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz,
-                              train_data, args.batch, args.n_critics, args.latent_space_dim, device,
-                              args.sampling_ratio)
+                              train_loaders, args.batch, args.n_critics, args.latent_space_dim, device)
 
             cx_epoch_loss.append(cx_loss_mean)
             cz_epoch_loss.append(cz_loss_mean)
@@ -399,14 +377,6 @@ if __name__ == "__main__":
     # Train
     if args.mode == 'all' or args.mode == 'test':
         logging.info('Start testing {}'.format(args.datasets))
-
-        # load data
-        test_data = np.load(test_data_path)
-        test_label = np.load(test_label_path)
-        signal_shape = test_data.shape[1]
-
-        test_dataset = TadGANDataset(data=test_data, label=test_label)
-        test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
 
         # load model
         encoder = model.Encoder(signal_shape, args.latent_space_dim).to(device)

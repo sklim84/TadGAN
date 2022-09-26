@@ -6,7 +6,7 @@ parser.add_argument('--tadgan', type=str, default='tadgan')  # add to confirm in
 parser.add_argument('--mode', type=str, default='test')  # train, test, all
 parser.add_argument('--device', type=str, default='0')
 parser.add_argument('--seed', type=int, default=0)
-parser.add_argument('--datasets', type=str, default='swat')  # wadi, swat
+parser.add_argument('--datasets', type=str, default='SMAP')  # WADI, SWaT, SMAP, SMD
 parser.add_argument('--epoch', type=int, default=200)
 parser.add_argument('--batch', type=int, default=60)
 parser.add_argument('--seq_len', type=int, default=12)
