@@ -50,7 +50,6 @@ def dtw_reconstruction_error(x, x_):
 
 
 def pw_reconstruction_error(x, x_):
-    # FIXME sum or mean
     return LA.norm(x - x_, 1)
 
 
