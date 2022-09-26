@@ -12,19 +12,25 @@ class TadGANDataset(TensorDataset):
             self.label = np.zeros(shape=(len(self.data),), dtype=np.int8)
 
         if sampling_ratio is not None:
-            self.data, self.label = self._sampling(self.data, self.label, sampling_ratio, seq_len)
+            # self.data, self.label = self._sampling_with_perm(self.data, self.label, sampling_ratio, seq_len)
+            self.data, self.label = self._sampling_with_seq(self.data, self.label, sampling_ratio)
 
-    def _sampling(self, data, label, sampling_ratio, seq_len):
+    def _sampling_with_seq(self, data, label, sampling_ratio):
+        length = len(data)
+        idx_sample = int(sampling_ratio * length)
+        return data[:idx_sample], label[:idx_sample]
 
-        data = self.convert_to_windows(data, seq_len)
-        label = self.convert_to_windows(label, seq_len)
+    def _sampling_with_perm(self, data, label, sampling_ratio, seq_len):
+
+        data = self._convert_to_windows(data, seq_len)
+        label = self._convert_to_windows(label, seq_len)
 
         length = len(data)
         idx_sample = np.random.permutation(length)[:int(np.floor(sampling_ratio * length))]
         idx_sample = np.sort(idx_sample)
         return data[idx_sample], label[idx_sample]
 
-    def convert_to_windows(self, data, seq_len, stride=1):
+    def _convert_to_windows(self, data, seq_len, stride=1):
         new_data = []
         for i in range(0, len(data) - seq_len, stride):
             _x = data[i:i + seq_len]

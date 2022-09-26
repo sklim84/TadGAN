@@ -41,9 +41,10 @@ def convert_to_windows(data, seq_len, stride=1):
     return np.array(new_data)
 
 
-def critic_x_iteration(x, device, seq_len, latent_space_dim, critic_x, decoder, optimizer):
+def critic_x_iteration(x, device, batch_size, latent_space_dim, critic_x, decoder, optimizer):
     optimizer.zero_grad()
 
+    x = x.view(1, batch_size, signal_shape)
     valid_x = critic_x(x)
     valid_x = torch.squeeze(valid_x)
 
@@ -52,7 +53,7 @@ def critic_x_iteration(x, device, seq_len, latent_space_dim, critic_x, decoder, 
     critic_score_valid_x = torch.mean(valid_ones * valid_x)  # Wasserstein Loss
 
     # The sampled z are the anomalous points - points deviating from actual distribution of z (obtained through encoding x)
-    z = torch.empty(1, seq_len, latent_space_dim).uniform_(0, 1)
+    z = torch.empty(1, batch_size, latent_space_dim).uniform_(0, 1)
     z = z.to(device)
     x_ = decoder(z)
     fake_x = critic_x(x_)
@@ -82,9 +83,10 @@ def critic_x_iteration(x, device, seq_len, latent_space_dim, critic_x, decoder, 
     return loss
 
 
-def critic_z_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, optimizer):
+def critic_z_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, optimizer):
     optimizer.zero_grad()
 
+    x = x.view(1, batch_size, signal_shape)
     z = encoder(x)
     valid_z = critic_z(z)
     valid_z = torch.squeeze(valid_z)
@@ -93,7 +95,7 @@ def critic_z_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, 
     valid_ones = valid_ones.to(device)
     critic_score_valid_z = torch.mean(valid_ones * valid_z)
 
-    z_ = torch.empty(1, seq_len, latent_space_dim).uniform_(0, 1)
+    z_ = torch.empty(1, batch_size, latent_space_dim).uniform_(0, 1)
     z_ = z_.to(device)
     fake_z = critic_z(z_)
     fake_z = torch.squeeze(fake_z)
@@ -119,16 +121,17 @@ def critic_z_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, 
     return loss
 
 
-def encoder_iteration(x, device, seq_len, latent_space_dim, critic_x, encoder, decoder, optimizer):
+def encoder_iteration(x, device, batch_size, latent_space_dim, critic_x, encoder, decoder, optimizer):
     optimizer.zero_grad()
 
+    x = x.view(1, batch_size, signal_shape)
     valid_x = critic_x(x)
     valid_x = torch.squeeze(valid_x)
     valid_ones = torch.ones(valid_x.shape)
     valid_ones = valid_ones.to(device)
     critic_score_valid_x = torch.mean(valid_ones * valid_x)  # Wasserstein Loss
 
-    z = torch.empty(1, seq_len, latent_space_dim).uniform_(0, 1)
+    z = torch.empty(1, batch_size, latent_space_dim).uniform_(0, 1)
     z = z.to(device)
     x_ = decoder(z)
     fake_x = critic_x(x_)
@@ -150,9 +153,10 @@ def encoder_iteration(x, device, seq_len, latent_space_dim, critic_x, encoder, d
     return loss_enc
 
 
-def decoder_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, decoder, optimizer):
+def decoder_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, decoder, optimizer):
     optimizer.zero_grad()
 
+    x = x.view(1, batch_size, signal_shape)
     z = encoder(x)
     valid_z = critic_z(z)
     valid_z = torch.squeeze(valid_z)
@@ -160,7 +164,7 @@ def decoder_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, d
     valid_ones = valid_ones.to(device)
     critic_score_valid_z = torch.mean(valid_ones * valid_z)
 
-    z_ = torch.empty(1, seq_len, latent_space_dim).uniform_(0, 1)
+    z_ = torch.empty(1, batch_size, latent_space_dim).uniform_(0, 1)
     z_ = z_.to(device)
     fake_z = critic_z(z_)
     fake_z = torch.squeeze(fake_z)
@@ -182,11 +186,12 @@ def decoder_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, d
 
 
 def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz, data, batch_size,
-                seq_len, n_critics, latent_space_dim, device, sampling_ratio=0.2):
+                n_critics, latent_space_dim, device, sampling_ratio=0.2):
     cx_nc_loss, cz_nc_loss = list(), list()
 
     # training data random sampling
-    train_dataset = TadGANDataset(data=data, sampling_ratio=sampling_ratio, seq_len=seq_len)
+    # train_dataset = TadGANDataset(data=data, sampling_ratio=sampling_ratio, seq_len=seq_len)
+    train_dataset = TadGANDataset(data=data, sampling_ratio=sampling_ratio)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=8, drop_last=True)
     logging.info('Number of samples in train dataset {}'.format(len(train_dataset)))
 
@@ -194,12 +199,13 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
     for i in range(1, n_critics + 1):
         cx_loss_list, cz_loss_list = list(), list()
 
+        logging.info('length of train loader: {}'.format(len(train_loader)))
         for batch, sample in enumerate(train_loader):
             x = sample['signal']
             x = torch.Tensor(x).to(device)
 
-            cx_loss = critic_x_iteration(x, device, seq_len, latent_space_dim, critic_x, decoder, optim_cx)
-            cz_loss = critic_z_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, optim_cz)
+            cx_loss = critic_x_iteration(x, device, batch_size, latent_space_dim, critic_x, decoder, optim_cx)
+            cz_loss = critic_z_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, optim_cz)
             cx_loss_list.append(cx_loss)
             cz_loss_list.append(cz_loss)
 
@@ -220,8 +226,8 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
                          .format(batch, args.device, nvidia_smi.nvmlDeviceGetName(handle), 100 * info.free / info.total,
                                  info.total, info.free, info.used))
 
-        enc_loss = encoder_iteration(x, device, seq_len, latent_space_dim, critic_x, encoder, decoder, optim_enc)
-        dec_loss = decoder_iteration(x, device, seq_len, latent_space_dim, critic_z, encoder, decoder, optim_dec)
+        enc_loss = encoder_iteration(x, device, batch_size, latent_space_dim, critic_x, encoder, decoder, optim_enc)
+        dec_loss = decoder_iteration(x, device, batch_size, latent_space_dim, critic_z, encoder, decoder, optim_dec)
         encoder_loss.append(enc_loss)
         decoder_loss.append(dec_loss)
 
@@ -235,7 +241,7 @@ def train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, opti
     return cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean
 
 
-def eval_model(encoder, decoder, critic_x, dataloader, seq_len, device):
+def eval_model(encoder, decoder, critic_x, dataloader, batch_size, device):
     logging.info('Number of samples in test dataset {}'.format(len(dataloader.dataset)))
 
     reconstruction_error_list = list()
@@ -249,7 +255,7 @@ def eval_model(encoder, decoder, critic_x, dataloader, seq_len, device):
         reconstructed_signal = decoder(encoder(signal))
         reconstructed_signal = torch.squeeze(reconstructed_signal)
 
-        for i in range(0, seq_len):
+        for i in range(0, batch_size):
             x_ = reconstructed_signal[i].detach().cpu().numpy()
             x = signal[i].cpu().numpy()
             y_true.append(int(anomaly[i].detach()))
@@ -258,15 +264,12 @@ def eval_model(encoder, decoder, critic_x, dataloader, seq_len, device):
         critic_score = torch.squeeze(critic_x(signal))
         critic_score_list.extend(critic_score.detach().cpu().numpy())
 
-    # print(reconstruction_error_list)
-    # print(critic_score_list)
-
     reconstruction_error_stats = stats.zscore(reconstruction_error_list)
     critic_score_stats = stats.zscore(critic_score_list)
     anomaly_score = reconstruction_error_stats * critic_score_stats
 
     # find best threshold
-    threshold_list = list(np.arange(0, 1, 0.001))
+    threshold_list = list(np.arange(0.001, 1, 0.001))
     accuracy_list, precision_list, recall_list, f1score_list = [], [], [], []
     for threshold in threshold_list:
         y_predict = detect_anomaly_with_threshold(anomaly_score, threshold)
@@ -288,7 +291,6 @@ if __name__ == "__main__":
 
     # get arguments
     args = get_config()
-    print(args)
     logging.info(args)
 
     # set path for datasets, model, and so on
@@ -329,7 +331,7 @@ if __name__ == "__main__":
     # GPU setting
     gpu = 'cuda:' + args.device
     device = torch.device(gpu)
-    print(device)
+    logging.info(device)
 
     # Train
     if args.mode == 'all' or args.mode == 'train':
@@ -365,7 +367,7 @@ if __name__ == "__main__":
 
             cx_loss_mean, cz_loss_mean, encoder_loss_mean, decoder_loss_mean \
                 = train_model(encoder, decoder, critic_x, critic_z, optim_enc, optim_dec, optim_cx, optim_cz,
-                              train_data, args.batch, args.seq_len, args.n_critics, args.latent_space_dim, device,
+                              train_data, args.batch, args.n_critics, args.latent_space_dim, device,
                               args.sampling_ratio)
 
             cx_epoch_loss.append(cx_loss_mean)
@@ -377,7 +379,7 @@ if __name__ == "__main__":
                 cx_epoch_loss[-1], cz_epoch_loss[-1], encoder_epoch_loss[-1], decoder_epoch_loss[-1]))
 
             # save model
-            if epoch % 10 == 0:
+            if (epoch + 1) % 10 == 0:
                 # Saving torch.nn.DataParallel Models
                 # torch.save(encoder.module.state_dict(), encoder_path)
                 # torch.save(decoder.module.state_dict(), decoder_path)
@@ -392,8 +394,10 @@ if __name__ == "__main__":
                 torch.save(optim_cx.state_dict(), critic_x_opt_path)
                 torch.save(optim_cz.state_dict(), critic_z_opt_path)
 
+        logging.info('End training {}'.format(args.datasets))
+
     # Train
-    elif args.mode == 'all' or args.mode == 'test':
+    if args.mode == 'all' or args.mode == 'test':
         logging.info('Start testing {}'.format(args.datasets))
 
         # load data
@@ -402,7 +406,7 @@ if __name__ == "__main__":
         signal_shape = test_data.shape[1]
 
         test_dataset = TadGANDataset(data=test_data, label=test_label)
-        test_loader = DataLoader(test_dataset, batch_size=args.seq_len, num_workers=8, drop_last=True)
+        test_loader = DataLoader(test_dataset, batch_size=args.batch, num_workers=8, drop_last=True)
 
         # load model
         encoder = model.Encoder(signal_shape, args.latent_space_dim).to(device)
@@ -412,5 +416,5 @@ if __name__ == "__main__":
         critic_x = model.CriticX(signal_shape).to(device)
         critic_x.load_state_dict(torch.load(critic_x_path))
 
-        df_result = eval_model(encoder, decoder, critic_x, test_loader, args.seq_len, device)
+        df_result = eval_model(encoder, decoder, critic_x, test_loader, args.batch, device)
         df_result.to_csv(test_result_path)
