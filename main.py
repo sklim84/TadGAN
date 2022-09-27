@@ -18,7 +18,8 @@ from tqdm import tqdm
 import model
 from _datasets.datasets import TadGANDataset
 
-from anomaly_detection import pw_reconstruction_error, detect_anomaly_with_threshold
+from anomaly_detection import pw_reconstruction_error, detect_anomaly_with_threshold, detect_anomaly, \
+    prune_false_positive, dtw_reconstruction_error
 from config import get_config
 import nvidia_smi
 from utils import create_dataloaders
@@ -248,7 +249,9 @@ def eval_model(encoder, decoder, critic_x, dataloader, batch_size, device):
             x_ = reconstructed_signal[i].detach().cpu().numpy()
             x = signal[i].cpu().numpy()
             y_true.append(int(anomaly[i].detach()))
-            reconstruction_error = pw_reconstruction_error(x, x_)
+
+            # reconstruction_error = pw_reconstruction_error(x, x_)
+            reconstruction_error = dtw_reconstruction_error(x, x_)
             reconstruction_error_list.append(reconstruction_error)
         critic_score = torch.squeeze(critic_x(signal))
         critic_score_list.extend(critic_score.detach().cpu().numpy())
@@ -257,23 +260,17 @@ def eval_model(encoder, decoder, critic_x, dataloader, batch_size, device):
     critic_score_stats = stats.zscore(critic_score_list)
     anomaly_score = reconstruction_error_stats * critic_score_stats
 
-    # find best threshold
-    threshold_list = list(np.arange(0.001, 1, 0.001))
-    accuracy_list, precision_list, recall_list, f1score_list = [], [], [], []
-    for threshold in threshold_list:
-        y_predict = detect_anomaly_with_threshold(anomaly_score, threshold)
-        accuracy_list.append(accuracy_score(y_true, y_predict))
-        precision_list.append(precision_score(y_true, y_predict, pos_label=0))
-        recall_list.append(recall_score(y_true, y_predict, pos_label=0))
-        f1score_list.append(f1_score(y_true, y_predict, pos_label=0))
+    y_predict = detect_anomaly(anomaly_score)
+    y_predict = prune_false_positive(y_predict, anomaly_score, change_threshold=0.1)
 
-    df_result = pd.DataFrame(
-        {'threshold': threshold_list, 'accuracy': accuracy_list, 'precision': precision_list, 'recall': recall_list,
-         'f1score': f1score_list})
-    df_result.sort_values(by=['f1score'], ascending=False, inplace=True)
-    logging.info(df_result.iloc[0])
+    accuracy = accuracy_score(y_true, y_predict)
+    precision = precision_score(y_true, y_predict, pos_label=0)
+    recall = recall_score(y_true, y_predict, pos_label=0)
+    f1score = f1_score(y_true, y_predict, pos_label=0)
 
-    return df_result
+    logging.info(f'accuracy: {accuracy}, precision: {precision}, recall: {recall}, f1score: {f1score}')
+
+    return accuracy, precision, recall, f1score
 
 
 if __name__ == "__main__":
@@ -283,7 +280,7 @@ if __name__ == "__main__":
     logging.info(args)
 
     # set path for datasets, model, and so on
-    dir_datasets, dir_models, dir_results = './_datasets', './models', './results'
+    dir_models, dir_results = './models', './results'
 
     # datasets
     train_loaders, test_loader, signal_shape = create_dataloaders(datasets=args.datasets, batch_size=args.batch,
@@ -386,5 +383,8 @@ if __name__ == "__main__":
         critic_x = model.CriticX(signal_shape).to(device)
         critic_x.load_state_dict(torch.load(critic_x_path))
 
-        df_result = eval_model(encoder, decoder, critic_x, test_loader, args.batch, device)
+        accuracy, precision, recall, f1score = eval_model(encoder, decoder, critic_x, test_loader, args.batch, device)
+
+        df_result = pd.DataFrame(
+            {'accuracy': [accuracy], 'precision': [precision], 'recall': [recall], 'f1score': [f1score]})
         df_result.to_csv(test_result_path)

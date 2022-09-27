@@ -52,7 +52,7 @@ def create_dataloaders(datasets, batch_size, sampling_ratio=None):
     test_dataset = TadGANDataset(data=test_data, label=label_data)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=8, drop_last=True)
 
-    print(f'In {datasets}, number of tran dataloaders: {len(train_loaders)}')
+    print(f'In {datasets}, number of train dataloaders: {len(train_loaders)}')
     print(f'In {datasets}, length of test data: {len(test_data)}')
     print(f'In {datasets}, length of test labels: {len(label_data)}')
 

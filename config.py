@@ -6,16 +6,16 @@ parser.add_argument('--tadgan', type=str, default='tadgan')  # add to confirm in
 parser.add_argument('--mode', type=str, default='test')  # train, test, all
 parser.add_argument('--device', type=str, default='0')
 parser.add_argument('--seed', type=int, default=0)
-parser.add_argument('--datasets', type=str, default='SMAP')  # WADI, SWaT, SMAP, SMD
+parser.add_argument('--datasets', type=str, default='MSL')  # WADI, SWaT, SMAP, SMD
 parser.add_argument('--epoch', type=int, default=200)
 parser.add_argument('--batch', type=int, default=60)
-parser.add_argument('--seq_len', type=int, default=12)
+# parser.add_argument('--seq_len', type=int, default=12)
 parser.add_argument('--n_critics', type=int, default=5)
 parser.add_argument('--lr', type=float, default=1e-5)
 parser.add_argument('--latent_space_dim', type=int, default=20)
 parser.add_argument('--beta1', type=float, default=0.5)
 parser.add_argument('--beta2', type=float, default=0.999)
-parser.add_argument('--sampling_ratio', type=float, default=0.2)  # 0.2
+parser.add_argument('--sampling_ratio', type=float, default=1)  # 0.2
 
 
 def get_config():
